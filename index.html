@@ -1,11 +1,61 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KongCare</title>
-</head>
-<body>
-  <h1>KongCare 정상 작동</h1>
-  <p>GitHub → Vercel 연결 성공</p>
-</body>
-</html>
+  <style>
+    :root{
+      --blue:#2563eb;
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:520px;margin:0 auto;padding:18px}
+    .pill{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background:#eef2ff;border:1px solid #e0e7ff;color:#3730a3;
+      font-size:12px;font-weight:800;margin:6px 0 10px;
+    }
+    .title{font-size:26px;font-weight:900;margin:0 0 6px}
+    .sub{margin:0;color:var(--muted);font-size:16px;line-height:1.5}
+    .card{
+      margin-top:14px;background:var(--card);border:1px solid var(--line);
+      border-radius:16px;padding:16px;
+      box-shadow:0 6px 16px rgba(15,23,42,.06);
+    }
+    .summary{
+      margin:10px 0 0;padding:12px;border-radius:14px;
+      background:#f1f5ff;border:1px solid #dbeafe;
+      font-size:16px;line-height:1.7;
+    }
+    .grid{display:grid;gap:14px;margin-top:14px}
+    .btn{
+      width:100%;border:none;border-radius:16px;
+      font-weight:900;cursor:pointer;
+    }
+    .btn.primary{height:72px;background:var(--blue);color:#fff;font-size:20px}
+    .btn.secondary{
+      height:64px;background:#fff;color:var(--text);
+      border:1px solid var(--line);font-size:18px
+    }
+    .divider{height:1px;background:var(--line);margin:14px 0}
+    .mini{margin:0;font-size:12px;color:#64748b;line-height:1.6;text-align:center}
+    .panel{
+      margin-top:14px;border:1px solid var(--line);background:#fff;
+      border-radius:16px;padding:14px;display:none;
+    }
+    .panel h2{margin:0 0 10px;font-size:18px}
+    .item{border:1px solid #e5e7eb;border-radius:14px;padding:12px;margin-bottom:10px}
+    .item b{display:block;font-size:16px;margin-bottom:6px}
+    .item small{color:#64748b}
+    .chip{display:inline-block;padding:4px 8px
