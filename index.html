@@ -1,367 +1,103 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#ffffff">
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>KongCare</title> 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>콩케어 (KongCare)</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+
   <style>
-    :root{--blue:#2563eb;--bg:#f4f7fb;--card:#fff;--text:#0f172a;--muted:#475569;--line:#e2e8f0;}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);}
-    .wrap{max-width:520px;margin:0 auto;padding:18px}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;border:1px solid #e0e7ff;color:#3730a3;font-size:12px;font-weight:900;margin:6px 0 10px;}
-    .title{font-size:26px;font-weight:900;margin:0 0 6px}
-    .sub{margin:0;color:var(--muted);font-size:16px;line-height:1.5}
-    .card{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 16px rgba(15,23,42,.06);}
-    .grid{display:grid;gap:14px;margin-top:14px}
-    .btn{width:100%;border:none;border-radius:16px;font-weight:900;cursor:pointer}
-    .btn.primary{height:72px;background:var(--blue);color:#fff;font-size:20px}
-    .btn.secondary{height:64px;background:#fff;color:var(--text);border:1px solid var(--line);font-size:18px}
-    .mini{margin:12px 0 0;font-size:12px;color:#64748b;line-height:1.6;text-align:center}
-
-    .panel{margin-top:14px;border:1px solid var(--line);background:#fff;border-radius:16px;padding:14px;display:none;}
-    .panel h2{margin:0 0 10px;font-size:18px}
-
-    .item{border:1px solid #e5e7eb;border-radius:14px;padding:12px;margin-top:10px;background:#fff}
-    .item b{display:block;font-size:16px;margin-bottom:6px}
-    .item small{color:#64748b;display:block;line-height:1.5}
-    .chip{display:inline-block;padding:4px 8px;border-radius:999px;background:#f1f5f9;border:1px solid #e2e8f0;font-size:12px;margin-right:6px;margin-top:6px}
-
-    .linkRow{display:grid;gap:10px;margin-top:10px}
-    .linkGo{display:block;text-align:center;padding:14px;border-radius:14px;border:1px solid #e2e8f0;background:#fff;text-decoration:none;color:#0f172a;font-weight:900;font-size:16px}
-
-    .qbox{border:1px solid #e5e7eb;border-radius:14px;padding:12px;background:#fff}
-    textarea{width:100%;min-height:92px;border:1px solid #cbd5e1;border-radius:14px;padding:12px;font-size:16px;line-height:1.5;outline:none}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-    .exbtn{flex:1;min-width:140px;height:44px;border-radius:12px;border:1px solid #e2e8f0;background:#f8fafc;font-weight:900;font-size:14px;cursor:pointer}
-    .copybtn{margin-top:10px;width:100%;height:56px;border-radius:14px;border:1px solid #cbd5e1;background:#fff;font-weight:900;font-size:16px;cursor:pointer}
-    .ans{margin-top:12px;border-top:1px dashed #cbd5e1;padding-top:12px;white-space:pre-wrap}
-
-    .detail{display:none;margin-top:10px;border-top:1px dashed #cbd5e1;padding-top:10px}
-    .detail h3{margin:0 0 6px;font-size:16px}
-    ul{margin:6px 0 0;padding-left:18px;line-height:1.7}
-    .backbtn{margin-top:10px;height:52px;border-radius:14px;border:1px solid #cbd5e1;background:#fff;font-weight:900;width:100%;cursor:pointer}
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, "Noto Sans KR", sans-serif;
+      background: #f4f7fb;
+      color: #0f172a;
+    }
+    .wrap {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      font-weight: 900;
+    }
+    .sub {
+      font-size: 15px;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      margin-top: 12px;
+      border-radius: 14px;
+      border: none;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .secondary {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.6;
+    }
+    a { color: #2563eb; text-decoration: none; }
   </style>
 </head>
 
 <body>
-<div class="wrap">
-  <div class="pill">여수·전남 투석/이식대기 지원 안내</div>
-  <h1 class="title">콩케어 (KongCare)</h1>
-  <p class="sub">8개 핵심 항목(실비보험 제외) + 체크(30초) + 질문 입력 + 복사 공유</p>
+  <div class="wrap">
+    <div class="card">
+      <h1>콩케어 (KongCare)</h1>
+      <div class="sub">
+        투석·이식 대기 환자를 위한<br />
+        복지 정보 빠른 정리 도우미
+      </div>
 
-  <div class="card">
-    <div class="grid">
-      <button class="btn primary" onclick="showPanel('list')">8개 항목 보기</button>
-      <button class="btn secondary" onclick="showPanel('check')">지금 내 상황 체크하기</button>
-      <button class="btn secondary" onclick="showPanel('qa')">궁금한 거 물어보기(입력)</button>
-      <button class="btn secondary" onclick="location.href='/?v=' + Date.now()">최신으로 새로 열기</button>
-      <button class="btn secondary" onclick="copyText(makeShare8())">📤 8개 항목 카톡용 요약 복사</button>
+      <button class="btn primary"
+        onclick="location.href='https://www.gov.kr'">
+        8개 핵심 항목 보기
+      </button>
+
+      <button class="btn secondary"
+        onclick="location.href='https://www.bokjiro.go.kr'">
+        지금 내 상황 확인하기
+      </button>
+
+      <button class="btn secondary"
+        onclick="location.href='https://www.129.go.kr'">
+        공식 복지 사이트 자세히 보기
+      </button>
+
+      <div class="note">
+        ※ 각 항목의 세부 기준과 최신 내용은<br />
+        반드시 공식 사이트에서 최종 확인하세요.
+      </div>
     </div>
-    <p class="mini">
-      ※ 아이폰: 공유 버튼 → “홈 화면에 추가”<br/>
-      ※ 응급 상황(흉통/호흡곤란/실신 등)은 119 또는 응급실로 바로 연락
-    </p>
   </div>
-
-  <!-- (A) 8개 항목 -->
-  <div class="panel" id="panel-list">
-    <h2>8개 핵심 항목 (실비보험 제외)</h2>
-
-    <!-- 1 -->
-    <div class="item">
-      <b>1) 장애인 등록(신장장애·투석)</b>
-      <span class="chip">장애</span><span class="chip">필수</span>
-      <small>복지/감면/연금/바우처의 출발점</small>
-      <button class="backbtn" onclick="toggleDetail('d1')">자세히 보기</button>
-      <div class="detail" id="d1">
-        <h3>어디서?</h3><ul><li>주민센터(동사무소) 복지팀</li></ul>
-        <h3>절차</h3><ul><li>병원 장애진단서 발급 → 주민센터 신청 → 심사</li></ul>
-        <h3>준비물(예시)</h3><ul><li>신분증</li><li>장애진단서</li><li>투석 확인 서류(요구 시)</li></ul>
-      </div>
-    </div>
-
-    <!-- 2 -->
-    <div class="item">
-      <b>2) 신장이식 신청(대기등록)</b>
-      <span class="chip">이식</span><span class="chip">필수</span>
-      <small>등록은 빠를수록 유리, 투석 중에도 신청 가능</small>
-      <button class="backbtn" onclick="toggleDetail('d2')">자세히 보기</button>
-      <div class="detail" id="d2">
-        <h3>어디서?</h3><ul><li>대학병원 등 이식센터/신장내과</li></ul>
-        <h3>다음 행동</h3><ul><li>현재 병원에 이식 대기등록 절차 문의</li><li>검사/서류 일정 안내 받기</li></ul>
-      </div>
-    </div>
-
-    <!-- 3 -->
-    <div class="item">
-      <b>3) 산정특례(본인부담 경감)</b>
-      <span class="chip">산정특례</span><span class="chip">의료비</span>
-      <small>적용/갱신 여부는 원무과·공단 확인</small>
-      <button class="backbtn" onclick="toggleDetail('d3')">자세히 보기</button>
-      <div class="detail" id="d3">
-        <h3>어디서?</h3><ul><li>병원 원무과 + 국민건강보험공단</li></ul>
-        <h3>주의</h3><ul><li>적용 범위/본인부담 수준은 개인별로 달라 확인 필요</li></ul>
-      </div>
-    </div>
-
-    <!-- 4 -->
-    <div class="item">
-      <b>4) 전남·여수 지자체 투석환자 의료비 지원(추가)</b>
-      <span class="chip">의료비</span><span class="chip">전남/여수</span>
-      <small>‘신청해야 받는’ 지역 지원일 수 있음</small>
-      <button class="backbtn" onclick="toggleDetail('d4')">자세히 보기</button>
-      <div class="detail" id="d4">
-        <h3>어디서?</h3><ul><li>주민센터(행정복지센터) 복지팀</li></ul>
-        <h3>무엇을 확인?</h3><ul><li>지원 항목 존재/지원 방식/서류/기한</li></ul>
-      </div>
-    </div>
-
-    <!-- 5 -->
-    <div class="item">
-      <b>5) 연금/현금성 지원(장애연금·장애인연금 등)</b>
-      <span class="chip">연금</span><span class="chip">중요</span>
-      <small>종류/요건이 달라 ‘해당 종류’부터 확인</small>
-      <button class="backbtn" onclick="toggleDetail('d5')">자세히 보기</button>
-      <div class="detail" id="d5">
-        <h3>어디서?</h3><ul><li>국민연금공단(장애연금) + 주민센터(장애인연금/수당)</li></ul>
-        <h3>주의</h3><ul><li>소득/재산/가입 이력에 따라 달라짐</li></ul>
-      </div>
-    </div>
-
-    <!-- 6 -->
-    <div class="item">
-      <b>6) 바우처 교통 지원(택시/교통약자 이동지원)</b>
-      <span class="chip">교통</span><span class="chip">바우처</span>
-      <small>여수(2026.1.1 기준): 월 15회 / 월 10만원</small>
-      <button class="backbtn" onclick="toggleDetail('d6')">자세히 보기</button>
-      <div class="detail" id="d6">
-        <h3>어디서?</h3><ul><li>주민센터 또는 교통약자센터</li></ul>
-        <h3>다음 행동</h3><ul><li>등록 가능 여부 문의 → 서류 목록 받기 → 이용 방식 확인</li></ul>
-        <h3>주의</h3><ul><li>기준은 변경될 수 있어 신청 전 확인</li></ul>
-      </div>
-    </div>
-
-    <!-- 7 -->
-    <div class="item">
-      <b>7) 생활 감면/바우처(공공요금·통신·주차 등)</b>
-      <span class="chip">생활</span><span class="chip">감면</span>
-      <small>장애등록 후 연계되는 경우가 많음</small>
-      <button class="backbtn" onclick="toggleDetail('d7')">자세히 보기</button>
-      <div class="detail" id="d7">
-        <h3>어디서?</h3><ul><li>주민센터 + 각 기관(전기/가스/통신/지자체)</li></ul>
-        <h3>다음 행동</h3><ul><li>감면 항목 리스트 먼저 받기 → 각 기관 신청</li></ul>
-      </div>
-    </div>
-
-    <!-- 8 -->
-    <div class="item">
-      <b>8) 긴급복지(의료·생계) 상담</b>
-      <span class="chip">긴급</span><span class="chip">상담</span>
-      <small>위기 상황이면 주민센터/129로 상담</small>
-      <button class="backbtn" onclick="toggleDetail('d8')">자세히 보기</button>
-      <div class="detail" id="d8">
-        <h3>어디로?</h3>
-        <ul>
-          <li>주민센터 복지팀</li>
-          <li>보건복지상담센터 129 (긴급복지 등 일부 상담 24시간 가능 / 일반상담은 운영시간 기준)</li>
-        </ul>
-        <h3>준비물(예시)</h3><ul><li>신분증</li><li>진단/투석 확인서(가능하면)</li><li>통장사본</li></ul>
-      </div>
-    </div>
-
-    <button class="copybtn" onclick="copyText(makeShare8())">📤 8개 요약 복사(카톡)</button>
-  </div>
-
-  <!-- (B) 체크 -->
-  <div class="panel" id="panel-check">
-    <h2>지금 내 상황 체크 (30초)</h2>
-    <div class="qbox">
-      <label><input type="checkbox" id="c_dialysis"> 현재 투석 중이다</label><br/><br/>
-      <label><input type="checkbox" id="c_transplant"> 신장이식 대기 등록(또는 예정)이다</label><br/><br/>
-      <label><input type="checkbox" id="c_disabled"> 장애인 등록(신장장애)이 되어있다</label><br/><br/>
-      <label><input type="checkbox" id="c_transport"> 병원 이동(교통)이 어려워 지원이 필요하다</label><br/><br/>
-      <label><input type="checkbox" id="c_emergency"> 최근 생계/의료비가 급격히 어려워졌다(긴급)</label>
-
-      <div class="row">
-        <button class="btn primary" style="height:56px;font-size:18px" onclick="runCheck()">결과 보기</button>
-        <button class="btn secondary" style="height:56px;font-size:16px" onclick="copyText(document.getElementById('checkResult').innerText || '')">📤 결과 복사</button>
-      </div>
-
-      <div class="ans" id="checkResult" style="display:none"></div>
-      <div id="checkLinks" style="display:none; margin-top:12px;"></div>
-    </div>
-    <p class="mini">※ 결과는 추천 우선순위입니다. 최종 확인은 주민센터/공단/병원</p>
-  </div>
-
-  <!-- (C) 질문 -->
-  <div class="panel" id="panel-qa">
-    <h2>궁금한 거 물어보기 (입력하면 자세히 정리)</h2>
-    <div class="qbox">
-      <textarea id="q" placeholder="예) 여수 교통 바우처는 몇 회/얼마? 신청은 어디서?"></textarea>
-      <div class="row">
-        <button class="exbtn" onclick="fillQ('여수 교통 바우처(바우처콜택시) 월 몇 회/얼마인가요? 신청은 어디서 해요?')">예시① 교통</button>
-        <button class="exbtn" onclick="fillQ('산정특례 적용/갱신은 어디서 확인해요?')">예시② 산정특례</button>
-        <button class="exbtn" onclick="fillQ('장애 등록 절차와 준비물 알려줘')">예시③ 장애등록</button>
-        <button class="exbtn" onclick="fillQ('긴급복지 상담은 어디로 연락하고 뭘 준비해?')">예시④ 긴급복지</button>
-      </div>
-      <div class="row">
-        <button class="btn primary" style="height:56px;font-size:18px" onclick="answer()">답변 받기</button>
-        <button class="btn secondary" style="height:56px;font-size:16px" onclick="copyText(document.getElementById('a').innerText || '')">📤 답변 복사</button>
-      </div>
-      <div class="ans" id="a" style="display:none"></div>
-    </div>
-    <p class="mini">※ 안내/정리용입니다. 최종 대상 여부는 기관에서 확인하세요.</p>
-  </div>
-
-</div>
-
-<script>
-  function showPanel(which){
-    ["list","qa","check"].forEach(id=>{
-      const el = document.getElementById("panel-"+id);
-      if(el) el.style.display = (id===which) ? "block" : "none";
-    });
-    const tgt = document.getElementById("panel-"+which);
-    if(tgt) tgt.scrollIntoView({behavior:"smooth", block:"start"});
-  }
-
-  function toggleDetail(id){
-    const el = document.getElementById(id);
-    el.style.display = (el.style.display==="block") ? "none" : "block";
-  }
-
-  function fillQ(text){ document.getElementById('q').value = text; }
-
-  function makeShare8(){
-    return `[콩케어] 투석/이식대기 8개 핵심(실비보험 제외)\n`+
-    `1) 장애등록(신장장애)\n2) 이식 대기등록\n3) 산정특례\n4) 전남·여수 지자체 의료비\n`+
-    `5) 연금/현금성 지원\n6) 교통 바우처(여수 2026: 월15회/10만원)\n7) 생활 감면\n8) 긴급복지 상담\n\n`+
-    `주소: https://kongcare.vercel.app`;
-  }
-
-  async function copyText(text){
-    if(!text){ alert("복사할 내용이 없습니다."); return; }
-    try{
-      await navigator.clipboard.writeText(text);
-      alert("복사 완료! 카톡에 붙여넣기 하세요.");
-    }catch(e){
-      prompt("복사가 안 되는 환경입니다.\n아래 내용을 길게 눌러 복사하세요:", text);
-    }
-  }
-
-  function runCheck(){
-    const dialysis = document.getElementById('c_dialysis').checked;
-    const transplant = document.getElementById('c_transplant').checked;
-    const disabled = document.getElementById('c_disabled').checked;
-    const transport = document.getElementById('c_transport').checked;
-    const emergency = document.getElementById('c_emergency').checked;
-
-    const rec = [];
-    const links = [];
-    function add(title, anchor){ rec.push(title); links.push({title, anchor}); }
-
-    if (emergency) add("8) 긴급복지(의료·생계) 상담", "d8");
-    if (dialysis){ add("3) 산정특례", "d3"); add("4) 전남·여수 지자체 의료비", "d4"); }
-    if (!disabled) add("1) 장애등록", "d1"); else add("7) 생활 감면", "d7");
-    if (transplant) add("2) 이식 대기등록", "d2");
-    if (transport) add("6) 교통 바우처", "d6");
-    add("5) 연금/현금성 지원", "d5");
-
-    const text =
-`[콩케어] 내 상황 체크 결과(추천 순서)\n`+
-rec.map((s,i)=>`${i+1}. ${s}`).join("\n")+
-`\n\n주소: https://kongcare.vercel.app\n`+
-`※ 최종 확인은 주민센터/공단/병원`;
-
-    const out = document.getElementById('checkResult');
-    out.style.display = "block";
-    out.innerText = text;
-
-    // 중복 제거 + 최대 5개
-    const uniq=[]; const seen=new Set();
-    for(const x of links){ if(!seen.has(x.anchor)){seen.add(x.anchor); uniq.push(x);} }
-    const limited = uniq.slice(0,5);
-
-    const box = document.getElementById('checkLinks');
-    box.style.display = "block";
-    box.innerHTML =
-      `<div class="linkRow">` +
-      limited.map(x => `<a class="linkGo" href="#${x.anchor}" onclick="showPanel('list'); setTimeout(()=>{document.getElementById('${x.anchor}').style.display='block'; document.getElementById('${x.anchor}').scrollIntoView({behavior:'smooth'});}, 50); return false;">자세히 보기 → ${x.title}</a>`).join("") +
-      `</div>` +
-      (uniq.length>5 ? `<div style="margin-top:10px;color:#64748b;font-size:13px;text-align:center;">※ 더 많은 항목은 ‘8개 항목 보기’에서 확인하세요</div>` : "");
-  }
-
-  function answer(){
-    const q = (document.getElementById('q').value || '').trim();
-    if(!q){ alert("질문을 입력해 주세요."); return; }
-
-    const lower = q.toLowerCase();
-    let topic="기본";
-    if (lower.includes("119") || lower.includes("응급") || lower.includes("흉통") || lower.includes("호흡곤란") || lower.includes("실신")) topic="응급";
-    else if (lower.includes("129") || lower.includes("긴급복지") || (lower.includes("긴급") && !lower.includes("응급"))) topic="긴급복지";
-    else if (lower.includes("교통") || lower.includes("택시") || lower.includes("바우처")) topic="교통";
-    else if (lower.includes("산정") || lower.includes("특례")) topic="산정특례";
-    else if (lower.includes("장애") || lower.includes("등록")) topic="장애등록";
-    else if (lower.includes("이식") || lower.includes("대기")) topic="이식";
-    else if (lower.includes("연금")) topic="연금";
-    else if (lower.includes("의료비") && (lower.includes("전남") || lower.includes("여수") || lower.includes("지자체"))) topic="지자체의료비";
-    else if (lower.includes("생활") || lower.includes("감면") || lower.includes("요금") || lower.includes("통신") || lower.includes("주차")) topic="생활감면";
-
-    const blocks={
-      "응급":[
-        "⚠️ 의료 응급이 의심됩니다.",
-        "• 즉시 119 또는 가까운 응급실로 연락하세요.",
-        "• 투석 환자는 투석실/응급실에 즉시 문의하세요."
-      ],
-      "긴급복지":[
-        "✅ 긴급복지(의료·생계) 상담",
-        "• 주민센터 복지팀",
-        "• 129 (긴급복지 등 일부 상담 24시간 가능 / 일반상담은 운영시간)",
-        "• 준비: 신분증, 진단/투석 확인서(가능하면), 통장사본"
-      ],
-      "교통":[
-        "✅ 교통 바우처",
-        "• 여수(2026.1.1 기준): 월 15회 / 월 10만원",
-        "• 주민센터 또는 교통약자센터에 등록/서류 확인"
-      ],
-      "산정특례":[
-        "✅ 산정특례",
-        "• 적용/갱신 여부는 병원 원무과/건보공단 확인",
-        "• 개인별 적용 범위가 달라 확인이 필요합니다."
-      ],
-      "장애등록":[
-        "✅ 장애인 등록(신장장애)",
-        "• 병원 장애진단서 → 주민센터 신청 → 심사"
-      ],
-      "이식":[
-        "✅ 신장이식 대기등록",
-        "• 이식센터/신장내과에 절차 문의 후 검사/서류 진행"
-      ],
-      "연금":[
-        "✅ 연금/현금성 지원",
-        "• 국민연금공단(장애연금) + 주민센터(장애인연금/수당)"
-      ],
-      "지자체의료비":[
-        "✅ 전남·여수 지자체 의료비 지원",
-        "• 주민센터 복지팀에 ‘투석환자 의료비 지원’ 존재/서류/기한 확인"
-      ],
-      "생활감면":[
-        "✅ 생활 감면/바우처",
-        "• 주민센터에서 감면 항목 리스트 받고 각 기관에 신청"
-      ],
-      "기본":[
-        "✅ 질문이 여러 항목에 걸쳐 있어요.",
-        "• ‘8개 항목 보기’ 또는 ‘내 상황 체크’로 먼저 분류하면 정확해집니다."
-      ]
-    };
-
-    const out=document.getElementById('a');
-    out.style.display="block";
-    out.innerText = `[질문]\n${q}\n\n[답변]\n${(blocks[topic]||blocks["기본"]).join("\n")}\n\n[주의]\n• 안내/정리용입니다. 최종 확인은 기관에서 하세요.`;
-  }
-</script>
 </body>
 </html>
