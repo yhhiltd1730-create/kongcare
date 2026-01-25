@@ -58,4 +58,122 @@
     .item{border:1px solid #e5e7eb;border-radius:14px;padding:12px;margin-bottom:10px}
     .item b{display:block;font-size:16px;margin-bottom:6px}
     .item small{color:#64748b}
-    .chip{display:inline-block;padding:4px 8px
+    .chip{display:inline-block;padding:4px 8px;border-radius:999px;background:#f1f5f9;border:1px solid #e2e8f0;font-size:12px;margin-right:6px}
+    .copybtn{
+      margin-top:8px;width:100%;height:56px;border-radius:14px;border:1px solid #cbd5e1;
+      background:#fff;font-weight:900;font-size:16px;cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pill">여수·전남 투석/이식대기 지원 안내</div>
+    <h1 class="title">콩케어 (KongCare)</h1>
+    <p class="sub">복지·지원금·바우처를 놓치지 않게, 필요한 것만 쉽게 확인합니다.</p>
+
+    <div class="card">
+      <div class="summary">
+        ✅ 지금 받을 수 있는 지원을 먼저 확인하고<br/>
+        ✅ 필요한 서류를 체크하고<br/>
+        ✅ 가족/주민센터에 카톡으로 공유하세요.
+      </div>
+
+      <div class="grid">
+        <button class="btn primary" onclick="showPanel('check')">나는 어떤 지원이 가능할까?</button>
+        <button class="btn secondary" onclick="showPanel('qa')">궁금한 거 물어보기</button>
+        <button class="btn secondary" onclick="showPanel('share')">가족에게 공유</button>
+      </div>
+
+      <div class="divider"></div>
+      <p class="mini">
+        ※ 아이폰: 공유 버튼 → “홈 화면에 추가”<br/>
+        ※ 응급 상황 시 119 또는 응급실로 바로 연락하세요
+      </p>
+    </div>
+
+    <!-- (1) 지원 추천 패널 -->
+    <div class="panel" id="panel-check">
+      <h2>지금 확인해보면 좋은 지원</h2>
+
+      <div class="item">
+        <b>산정특례 (의료비 부담 경감)</b>
+        <span class="chip">산정특례</span><span class="chip">의료비</span>
+        <div style="margin-top:8px">병원 원무과/건보공단에 신청 여부 확인</div>
+        <small>준비물 예: 신분증, 진단서, 신청서</small>
+      </div>
+
+      <div class="item">
+        <b>본인부담상한제 환급 가능성</b>
+        <span class="chip">의료비</span>
+        <div style="margin-top:8px">연간 의료비 초과분 환급 대상인지 확인</div>
+        <small>국민건강보험공단</small>
+      </div>
+
+      <div class="item">
+        <b>교통(바우처 택시/교통약자 이동지원)</b>
+        <span class="chip">교통</span><span class="chip">바우처</span>
+        <div style="margin-top:8px">여수/전남 교통약자 이동지원 등록 여부 확인</div>
+        <small>주민센터 또는 지역 교통약자센터 문의</small>
+      </div>
+
+      <div class="item">
+        <b>긴급복지(의료/생계) 상담</b>
+        <span class="chip">긴급</span>
+        <div style="margin-top:8px">갑작스런 위기 시 긴급지원 가능성 확인</div>
+        <small>주민센터 / 보건복지상담(129)</small>
+      </div>
+
+      <button class="copybtn" onclick="copyText(makeShareText())">📤 이 내용 복사해서 카톡에 붙여넣기</button>
+    </div>
+
+    <!-- (2) 질문 패널 -->
+    <div class="panel" id="panel-qa">
+      <h2>궁금한 거 물어보기</h2>
+      <div class="item">
+        <b>예시 질문</b>
+        <div>• 투석 중인데 교통비 지원 있어요?</div>
+        <div>• 산정특례 갱신은 언제 해야 해요?</div>
+        <div>• 의료비 환급은 어디서 확인해요?</div>
+        <small>※ 지금은 “질문 입력” 화면은 다음 단계에서 붙입니다.</small>
+      </div>
+      <button class="copybtn" onclick="copyText('투석 중인데 교통비 지원이 있는지 확인하고 싶습니다. 필요한 서류와 신청처를 알려주세요.')">
+        예시 질문 복사
+      </button>
+    </div>
+
+    <!-- (3) 공유 패널 -->
+    <div class="panel" id="panel-share">
+      <h2>가족에게 공유</h2>
+      <div class="item">
+        <b>카톡으로 보내기(복사 후 붙여넣기)</b>
+        <small>카톡 공유가 안 될 때도 “복사→붙여넣기”로 100% 전달됩니다.</small>
+      </div>
+      <button class="copybtn" onclick="copyText(makeShareText())">공유 문구 복사</button>
+    </div>
+  </div>
+
+  <script>
+    function showPanel(which){
+      const ids = ["check","qa","share"];
+      ids.forEach(id=>{
+        const el = document.getElementById("panel-"+id);
+        el.style.display = (id===which) ? "block" : "none";
+      });
+      window.scrollTo({top: document.getElementById("panel-"+which).offsetTop-10, behavior:"smooth"});
+    }
+
+    function makeShareText(){
+      return `[콩케어]\n투석/이식 환자 지원 확인용 요약입니다.\n\n1) 산정특례(의료비 부담 경감)\n2) 본인부담상한제 환급 가능성\n3) 교통(바우처 택시/교통약자 이동지원)\n4) 긴급복지(의료/생계) 상담\n\n문의: 주민센터 / 건보공단 / 129\n주소: https://kongcare.vercel.app`;
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        alert("복사 완료! 카톡에 붙여넣기 하세요.");
+      }catch(e){
+        prompt("복사가 안 되면 아래 문구를 길게 눌러 복사하세요:", text);
+      }
+    }
+  </script>
+</body>
+</html>
