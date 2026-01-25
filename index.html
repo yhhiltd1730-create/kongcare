@@ -26,6 +26,7 @@
       background:#fff;text-decoration:none;
       color:#0f172a;font-weight:800;font-size:16px
     }
+    .hint{font-size:12px;color:#64748b;line-height:1.5;margin-top:10px;text-align:center}
   </style>
 </head>
 
@@ -37,106 +38,102 @@
     여수시 복지·의료 지원 한눈에 보기
   </div>
 
-  <!-- 1 -->
-  <div class="card">
-    <h2>① 장애인 등록 (신장장애)</h2>
-    <p>신장 기능 상실로 인한 장애 등록 및 증명 발급</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.gov.kr" target="_blank" rel="noopener">
-        자세히 보기 (정부24)
-      </a>
-    </div>
-  </div>
+  <div id="cards"></div>
 
-  <!-- 2 -->
-  <div class="card">
-    <h2>② 신장이식 신청 / 대기자 등록</h2>
-    <p>뇌사자·생체 신장이식 대기 등록 절차</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.konos.go.kr" target="_blank" rel="noopener">
-        자세히 보기 (국립장기조직혈액관리원)
-      </a>
-    </div>
+  <div class="hint">
+    ※ 각 항목은 “세부 링크”로 나눠 연결했습니다.<br>
+    ※ 제도/요건은 변경될 수 있으니 최종은 해당 공식 사이트에서 확인하세요.
   </div>
-
-  <!-- 3 -->
-  <div class="card">
-    <h2>③ 산정특례 (본인부담 경감)</h2>
-    <p>투석·중증질환 의료비 본인부담금 경감 제도</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.nhis.or.kr" target="_blank" rel="noopener">
-        자세히 보기 (국민건강보험공단)
-      </a>
-    </div>
-  </div>
-
-  <!-- 4 -->
-  <div class="card">
-    <h2>④ 여수시 / 전남 지자체 의료비 지원</h2>
-    <p>여수시 및 전라남도 자체 의료비·복지 지원</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.yeosu.go.kr" target="_blank" rel="noopener">
-        여수시청 복지 안내
-      </a>
-      <a class="linkGo" href="https://www.jeonnam.go.kr" target="_blank" rel="noopener">
-        전라남도청 복지
-      </a>
-    </div>
-  </div>
-
-  <!-- 5 -->
-  <div class="card">
-    <h2>⑤ 장애연금 / 장애인연금</h2>
-    <p>소득 보전을 위한 연금·현금성 지원</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.nps.or.kr" target="_blank" rel="noopener">
-        장애연금 (국민연금공단)
-      </a>
-      <a class="linkGo" href="https://www.bokjiro.go.kr" target="_blank" rel="noopener">
-        장애인연금 (복지로)
-      </a>
-    </div>
-  </div>
-
-  <!-- 6 -->
-  <div class="card">
-    <h2>⑥ 교통 바우처 / 이동 지원</h2>
-    <p>교통약자 택시, 이동 지원 및 바우처</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.yeosu.go.kr" target="_blank" rel="noopener">
-        여수시 교통약자 지원
-      </a>
-      <a class="linkGo" href="https://www.129.go.kr" target="_blank" rel="noopener">
-        상담 문의 (129)
-      </a>
-    </div>
-  </div>
-
-  <!-- 7 -->
-  <div class="card">
-    <h2>⑦ 공공요금 · 통신 · 주차 감면</h2>
-    <p>전기·가스·통신·주차 등 생활비 감면</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.bokjiro.go.kr" target="_blank" rel="noopener">
-        복지로
-      </a>
-      <a class="linkGo" href="https://www.gov.kr" target="_blank" rel="noopener">
-        정부24
-      </a>
-    </div>
-  </div>
-
-  <!-- 8 -->
-  <div class="card">
-    <h2>⑧ 긴급복지 · 위기 지원</h2>
-    <p>의료비·생계비 등 긴급 상황 시 지원</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.129.go.kr" target="_blank" rel="noopener">
-        자세히 보기 (보건복지상담센터 129)
-      </a>
-    </div>
-  </div>
-
 </div>
+
+<script>
+  // ✅ 8개 항목 + 세부 링크(2~3개씩) “한꺼번에” 관리
+  // 필요하면 여기 URL만 바꾸면 전체가 자동 반영됨.
+  const DATA = [
+    {
+      title: "① 장애인 등록 (신장장애)",
+      desc: "신장 기능 상실로 인한 장애 등록 및 증명 발급",
+      links: [
+        { label: "장애인 등록 안내 (정부24)", url: "https://www.gov.kr" },
+        { label: "장애인 증명/발급 (정부24)", url: "https://www.gov.kr" }
+      ]
+    },
+    {
+      title: "② 신장이식 신청 / 대기자 등록",
+      desc: "뇌사자·생체 신장이식 대기 등록 절차",
+      links: [
+        { label: "대기자 등록/절차 (KONOS)", url: "https://www.konos.go.kr" },
+        { label: "장기이식 정보 (KONOS)", url: "https://www.konos.go.kr" }
+      ]
+    },
+    {
+      title: "③ 산정특례 (본인부담 경감)",
+      desc: "투석·중증질환 의료비 본인부담금 경감 제도",
+      links: [
+        { label: "산정특례 제도 안내 (건보공단)", url: "https://www.nhis.or.kr" },
+        { label: "적용/신청·갱신 안내 (건보공단)", url: "https://www.nhis.or.kr" }
+      ]
+    },
+    {
+      title: "④ 여수시 / 전남 지자체 의료비 지원",
+      desc: "여수시 및 전라남도 자체 의료비·복지 지원",
+      links: [
+        { label: "여수시청 복지(의료비) 안내", url: "https://www.yeosu.go.kr" },
+        { label: "전라남도청 복지", url: "https://www.jeonnam.go.kr" }
+      ]
+    },
+    {
+      title: "⑤ 장애연금 / 장애인연금",
+      desc: "소득 보전을 위한 연금·현금성 지원",
+      links: [
+        { label: "장애연금 (국민연금공단)", url: "https://www.nps.or.kr" },
+        { label: "장애인연금 (복지로)", url: "https://www.bokjiro.go.kr" }
+      ]
+    },
+    {
+      title: "⑥ 교통 바우처 / 이동 지원",
+      desc: "교통약자 택시, 이동 지원 및 바우처",
+      links: [
+        { label: "여수시 교통약자 지원 (여수시청)", url: "https://www.yeosu.go.kr" },
+        { label: "이동지원/교통 관련 안내 (정부24)", url: "https://www.gov.kr" },
+        { label: "상담 안내 (보건복지상담센터)", url: "https://www.129.go.kr" }
+      ]
+    },
+    {
+      title: "⑦ 공공요금 · 통신 · 주차 감면",
+      desc: "전기·가스·통신·주차 등 생활비 감면",
+      links: [
+        { label: "감면/혜택 안내 (복지로)", url: "https://www.bokjiro.go.kr" },
+        { label: "증명/신청 (정부24)", url: "https://www.gov.kr" }
+      ]
+    },
+    {
+      title: "⑧ 긴급복지 · 위기 지원",
+      desc: "의료비·생계비 등 긴급 상황 시 지원",
+      links: [
+        { label: "긴급복지 안내 (복지로)", url: "https://www.bokjiro.go.kr" },
+        { label: "보건복지상담센터", url: "https://www.129.go.kr" }
+      ]
+    }
+  ];
+
+  const cardsEl = document.getElementById("cards");
+
+  cardsEl.innerHTML = DATA.map(item => {
+    const linksHtml = item.links.map(l => `
+      <a class="linkGo" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>
+    `).join("");
+
+    return `
+      <div class="card">
+        <h2>${item.title}</h2>
+        <p>${item.desc}</p>
+        <div class="linkRow">
+          ${linksHtml}
+        </div>
+      </div>
+    `;
+  }).join("");
+</script>
 </body>
 </html>
