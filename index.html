@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>콩케어</title>
 
+  <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#ffffff">
 
@@ -12,37 +13,70 @@
     body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#f5f7fb;color:#111}
     .wrap{max-width:520px;margin:0 auto;padding:20px}
     h1{font-size:28px;margin:10px 0 6px 0;text-align:center}
-    .sub{font-size:15px;color:#555;text-align:center;margin-bottom:20px;line-height:1.6}
+    .sub{font-size:15px;color:#555;text-align:center;margin-bottom:18px;line-height:1.6}
+
+    .banner{
+      display:none;
+      background:#eef2ff;
+      border:1px dashed #2563eb;
+      color:#0f172a;
+      padding:12px 12px;
+      border-radius:14px;
+      margin:12px 0 18px;
+      font-size:13px;
+      line-height:1.55;
+    }
+    .banner b{font-weight:900}
 
     .card{background:#fff;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
-    .card h2{font-size:20px;margin:0 0 6px 0}
-    .sum{font-size:15px;font-weight:900;color:#0f172a;margin:0 0 8px 0}
-    .where{font-size:13px;color:#64748b;margin:0 0 10px 0;line-height:1.5}
+    .card h2{font-size:20px;margin:0 0 8px 0}
+    .sum{font-size:15px;font-weight:900;color:#0f172a;margin:0 0 8px 0;line-height:1.55}
+    .where{font-size:13px;color:#64748b;margin:0 0 10px 0;line-height:1.55}
 
-    .linkRow{display:grid;gap:10px;margin-top:8px}
+    .linkRow{display:grid;gap:10px;margin-top:10px}
     .linkGo{
       display:block;text-align:center;padding:14px;
       border-radius:14px;border:1px solid #e2e8f0;
       background:#fff;text-decoration:none;
       color:#0f172a;font-weight:800;font-size:16px
     }
-    .hint{font-size:12px;color:#64748b;line-height:1.5;margin:16px 0;text-align:center}
+
+    .btnGo{
+      width:100%;
+      border:0;
+      background:#2563eb;
+      color:#fff;
+      border-radius:14px;
+      padding:14px;
+      font-weight:900;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    .note{
+      font-size:12px;color:#64748b;line-height:1.6;text-align:center;margin:14px 0 0;
+    }
   </style>
 </head>
 
 <body>
 <div class="wrap">
   <h1>콩케어</h1>
-  <div class="sub">
-    투석환자 · 신장이식 대기자를 위한<br>
-    복지·지원금·바우처 “수치 요약 + 어디로 가야 하는지” 정리
+  <div class="sub">투석환자 · 신장이식 대기자를 위한<br>복지·지원 “수치 요약 + 어디로 가야 하는지” 정리</div>
+
+  <!-- QR이 ?install=1로 들어오면 표시 -->
+  <div id="installBanner" class="banner">
+    <b>📲 홈화면에 추가하면 앱처럼 사용됩니다</b><br>
+    안드로이드: 오른쪽 상단 <b>⋮</b> → <b>홈 화면에 추가</b><br>
+    아이폰: <b>공유</b> → <b>홈 화면에 추가</b><br>
+    (아래 ⑧번의 <b>“홈화면 추가/카톡 공유”</b> 버튼을 눌러도 됩니다)
   </div>
 
-  <!-- ① -->
+  <!-- ① 장애인 등록 -->
   <div class="card">
     <h2>① 장애인 등록 (신장장애)</h2>
     <p class="sum">요약: 복지 혜택의 출발점(등록하면 감면·연금·바우처 신청 가능)</p>
-    <p class="where">찾아갈 곳: 동사무소(행정복지센터) 복지팀 / (서류) 병원 장애진단서·신분증</p>
+    <p class="where">찾아갈 곳: 동사무소(행정복지센터) 복지팀 / 병원(장애진단서 발급)</p>
     <div class="linkRow">
       <a class="linkGo" href="https://www.mohw.go.kr/menu.es?mid=a10710010900" target="_blank" rel="noopener">등록 절차·기준(복지부)</a>
       <a class="linkGo" href="https://www.gov.kr/portal/service/serviceInfo/PTR000050381" target="_blank" rel="noopener">장애인 등록 안내(정부24)</a>
@@ -50,7 +84,7 @@
     </div>
   </div>
 
-  <!-- ② -->
+  <!-- ② 신장이식 -->
   <div class="card">
     <h2>② 신장이식 신청 / 대기자 등록</h2>
     <p class="sum">요약: 대기등록은 빠를수록 유리(병원 이식센터 통해 진행)</p>
@@ -61,79 +95,30 @@
     </div>
   </div>
 
-  <!-- ③ -->
+  <!-- ③ 산정특례 -->
   <div class="card">
     <h2>③ 산정특례 (본인부담 경감)</h2>
-    <p class="sum">요약: 투석/중증질환은 ‘본인부담 10%’ 수준으로 납부</p>
-    <p class="where">찾아갈 곳: 투석 병원 원무과 / 국민건강보험공단 지사 (※ 적용 여부는 개인별 확인)</p>
+    <p class="sum">요약: 투석/중증질환은 ‘본인부담 10%’ 수준</p>
+    <p class="where">찾아갈 곳: 투석 병원 원무과 / 국민건강보험공단 지사(개인별 적용 확인)</p>
     <div class="linkRow">
       <a class="linkGo" href="https://www.nhis.or.kr/nhis/policy/wbhada01600m01.do" target="_blank" rel="noopener">산정특례 안내(건보)</a>
       <a class="linkGo" href="https://www.nhis.or.kr/nhis/policy/wbhada01700m01.do" target="_blank" rel="noopener">적용 대상·기준(건보)</a>
     </div>
   </div>
 
-  <!-- ④ (형 수정 반영) -->
+  <!-- ④ 지자체 의료비(형 반영) -->
   <div class="card">
     <h2>④ 여수시 / 전남 지자체 의료비 지원</h2>
     <p class="sum">요약: 투석 관련 ‘본인부담 병원비’의 월 50% 지원</p>
-    <p class="where">찾아갈 곳: 동사무소(행정복지센터) 복지팀 / 여수시청 복지과 (※ 지자체 예산·기준 확인)</p>
+    <p class="where">찾아갈 곳: 동사무소 복지팀 / 여수시청 복지과(지자체 예산·기준 확인)</p>
     <div class="linkRow">
       <a class="linkGo" href="https://m.yeosu.go.kr/www/sphere/welfare/disab/medical" target="_blank" rel="noopener">여수시 의료·재활지원</a>
       <a class="linkGo" href="https://www.jeonnam.go.kr/M7116/boardList.do" target="_blank" rel="noopener">전남 복지사업 안내</a>
     </div>
   </div>
 
-  <!-- ⑤ -->
+  <!-- ⑤ 연금 -->
   <div class="card">
     <h2>⑤ 장애연금 / 장애인연금</h2>
     <p class="sum">요약: 조건 충족 시 매달 현금성 지원(장애연금·장애인연금 구분)</p>
-    <p class="where">찾아갈 곳: 국민연금공단(장애연금) / 동사무소 복지팀(장애인연금)</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.nps.or.kr/jsppage/apply/pension/disability.jsp" target="_blank" rel="noopener">장애연금 안내(국민연금)</a>
-      <a class="linkGo" href="https://www.bokjiro.go.kr/pension" target="_blank" rel="noopener">장애인연금 안내(복지로)</a>
-    </div>
-  </div>
-
-  <!-- ⑥ (형 수정 반영) -->
-  <div class="card">
-    <h2>⑥ 교통 바우처 택시 / 이동 지원</h2>
-    <p class="sum">요약: 2026년 기준 ‘월 15회 , 10만원’ 교통비 지원</p>
-    <p class="where">찾아갈 곳: 동사무소 복지팀 / 여수시 교통약자 이동지원센터(등록·이용기준 확인)</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.yeosu.go.kr/www/contents.do?key=4720" target="_blank" rel="noopener">여수 교통약자 이동지원</a>
-      <a class="linkGo" href="https://www.gov.kr/portal/service/serviceInfo/PTR000051921" target="_blank" rel="noopener">교통비 지원 안내(정부24)</a>
-    </div>
-  </div>
-
-  <!-- ⑦ -->
-  <div class="card">
-    <h2>⑦ 공공요금 · 통신 · 주차 감면등 </h2>
-    <p class="sum">요약: 전기·가스·통신·주차 등 ‘매달 자동 감면’이 가능한 항목 다수</p>
-    <p class="where">찾아갈 곳: 동사무소 복지팀 + 각 기관(전기/가스/통신/지자체 주차)</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.gov.kr/portal/service/serviceInfo/174100000049" target="_blank" rel="noopener">요금감면 안내(정부24)</a>
-      <a class="linkGo" href="https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003257" target="_blank" rel="noopener">통신요금 감면(복지로)</a>
-    </div>
-  </div>
-
-  <!-- ⑧ -->
-  <div class="card">
-    <h2>⑧ 긴급복지 · 위기 지원</h2>
-    <p class="sum">요약: 위기 시 의료·생계 ‘긴급 지원’ (조건 충족 시 단기 지원)</p>
-    <p class="where">찾아갈 곳: 동사무소 복지팀 (긴급복지 상담/접수) ※ 제도 상세는 공식 안내 확인</p>
-    <div class="linkRow">
-      <a class="linkGo" href="https://www.bokjiro.go.kr/ssis-teu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003179" target="_blank" rel="noopener">긴급복지 의료지원(복지로)</a>
-      <a class="linkGo" href="https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003180" target="_blank" rel="noopener">긴급복지 생계지원(복지로)</a>
-   <a class="linkGo" href="https://kongcare.vercel.app" target="_blank" rel="noopener">
-      📲 콩케어 어플 열기 (카톡 공유용)
-    </a> 
-   </div>
-  </div>
-
-  <div class="hint">
-    ※ “요약(수치)”는 이해를 돕기 위한 핵심 포인트입니다. 실제 지원은 지자체·개인 조건에 따라 달라질 수 있어,
-    동사무소 복지팀/병원 원무과/공단에서 최종 확인하세요.
-  </div>
-</div>
-</body>
-</html>
+    <p class="where">찾아갈 곳: 국민연금공단(장
