@@ -36,26 +36,18 @@
     .subtitle{margin:8px 0 0;font-size:15px;color:#555;line-height:1.6}
     .meta{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.5}
 
-    .banner{
-      display:none;background:var(--soft);border:1px dashed var(--blue);
-      border-radius:14px;padding:12px;font-size:13px;line-height:1.55;margin:12px 0 14px;text-align:left
-    }
-    .banner b{font-weight:900}
-
     .card{
-      background:var(--card);border-radius:18px;padding:16px;margin:14px 0;
-      box-shadow:0 6px 16px rgba(0,0,0,.06);border:1px solid #f1f5f9;
+      background:var(--card);
+      border-radius:18px;
+      padding:16px;
+      margin:14px 0;
+      box-shadow:0 6px 16px rgba(0,0,0,.06);
+      border:1px solid #f1f5f9;
     }
-    .pillRow{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 8px}
-    .card h2{margin:0;font-size:20px;font-weight:900;letter-spacing:-0.2px}
-    .badge{
-      display:inline-block;font-size:12px;font-weight:900;background:var(--soft);
-      border:1px solid #e0e7ff;color:#3730a3;border-radius:999px;padding:6px 10px;white-space:nowrap;
-    }
+    .card h2{margin:0 0 10px;font-size:20px;font-weight:900}
     .sum{margin:0 0 8px;font-size:15px;font-weight:900;line-height:1.55}
     .where,.money{margin:0 0 8px;font-size:13px;line-height:1.55}
     .where{color:var(--muted)}
-    .money b{font-weight:900}
 
     .linkRow{display:grid;gap:10px;margin-top:10px}
     .linkItem{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
@@ -66,12 +58,56 @@
     .qrBox{display:none;border-top:1px dashed #cbd5e1;padding:12px;text-align:center;background:#fff}
     .qrBox img{width:160px;height:160px}
     .qrHint{font-size:12px;color:var(--muted);margin-bottom:8px}
-    .tiny{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}
 
-    /* ✅ 하단 3종세트(고정 금지) */
+    /* ✅ 상단 설치 안내 박스(항상 표시, 닫기 가능) */
+    .installBanner{
+      background:var(--soft);
+      border:1px solid #c7d2fe;
+      border-radius:16px;
+      padding:14px;
+      margin:12px 0 14px;
+      text-align:left;
+      position:relative;
+    }
+    .installBanner .t{font-weight:900;margin:0 0 8px}
+    .installBanner .d{font-size:13px;line-height:1.55;margin:0 0 10px;color:#1f2937}
+    .installBanner .btnRow{display:grid;gap:10px}
+    .installBanner .btn{
+      width:100%;
+      border:0;
+      background:var(--blue);
+      color:#fff;
+      border-radius:14px;
+      padding:12px;
+      font-weight:900;
+      font-size:15px;
+      cursor:pointer;
+    }
+    .installBanner .btn2{
+      width:100%;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:14px;
+      padding:12px;
+      font-weight:900;
+      font-size:15px;
+      cursor:pointer;
+    }
+    .installBanner .close{
+      position:absolute;right:10px;top:10px;
+      border:1px solid #cbd5e1;background:#fff;border-radius:10px;
+      padding:6px 10px;font-weight:900;cursor:pointer;
+    }
+    .installBanner details{margin-top:10px}
+    .installBanner summary{font-weight:900;cursor:pointer}
+    .installBanner .mini{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}
+
+    /* ✅ 하단 3종세트(절대 고정 금지) */
     .bottomPack{
       background:#fff;border:1px solid var(--line);
-      border-radius:18px;padding:14px;box-shadow:0 6px 16px rgba(0,0,0,.06);
+      border-radius:18px;padding:14px;
+      box-shadow:0 6px 16px rgba(0,0,0,.06);
       margin-top:18px;
     }
     .bottomTitle{font-weight:900;font-size:15px;margin:0 0 10px 0}
@@ -98,26 +134,63 @@
   <div class="top">
     <div class="title">콩케어</div>
     <div class="subtitle">투석환자·신장이식 대기자를 위한<br><b>여수시 우선</b> “요약 + 어디로 + Direct 링크”</div>
-    <div class="meta" id="metaLine">
-      ※ 자동 업데이트: 3일 간격 / 03:00(KST) · 내용 변경 시 자동 반영(리로드 루프 방지 적용)
+    <div class="meta">※ 홈화면 바로가기 설치 안내 박스는 항상 표시됩니다(닫기 가능).</div>
+  </div>
+
+  <!-- ✅ 설치 안내 박스(항상 표시) -->
+  <div id="installBox" class="installBanner" aria-live="polite">
+    <button class="close" onclick="hideInstallBox()">X</button>
+    <p class="t">📲 콩케어를 “바탕화면 앱”으로 설치하세요</p>
+    <p class="d">
+      안드로이드: 오른쪽 상단 <b>⋮</b> → <b>홈 화면에 추가</b><br>
+      아이폰: <b>공유</b> → <b>홈 화면에 추가</b>
+    </p>
+    <div class="btnRow">
+      <button class="btn" onclick="openInstallShare()">홈화면 설치 / 카톡 공유</button>
+      <button class="btn2" onclick="location.href='/?install=1&v='+Date.now()">설치 안내 모드로 다시 열기</button>
+    </div>
+
+    <details>
+      <summary>설치가 안 보일 때(해결)</summary>
+      <div class="mini">
+        1) 바탕화면의 콩케어 아이콘 삭제(이미 설치된 경우)<br>
+        2) 크롬 캐시 삭제 후 다시 접속<br>
+        3) 주소창에 <b>?install=1&v=9999</b> 붙여 재접속
+      </div>
+    </details>
+  </div>
+
+  <!-- ✅ 예시 카드(형이 쓰던 내용 유지 가능) -->
+  <div class="card">
+    <h2>① 장애인 등록(신장장애)</h2>
+    <div class="sum">요약: 복지 혜택의 출발점</div>
+    <div class="where">어디로: 동사무소 복지팀 / 병원(진단서)</div>
+    <div class="money">금전표시: 연금·감면·바우처 연계(항목별 상이)</div>
+
+    <div class="linkRow">
+      <div class="linkItem">
+        <div class="linkTop">
+          <a class="linkA" href="https://www.mohw.go.kr/menu.es?mid=a10710010900" target="_blank" rel="noopener">등록 절차·장애정도심사(복지부)</a>
+          <button class="qrBtn" onclick="toggleQR(this,'https://www.mohw.go.kr/menu.es?mid=a10710010900')">QR</button>
+        </div>
+        <div class="qrBox"></div>
+      </div>
+      <div class="linkItem">
+        <div class="linkTop">
+          <a class="linkA" href="https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000117" target="_blank" rel="noopener">장애인 등록 신청(정부24)</a>
+          <button class="qrBtn" onclick="toggleQR(this,'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000117')">QR</button>
+        </div>
+        <div class="qrBox"></div>
+      </div>
+      <div class="linkItem">
+        <div class="linkTop">
+          <a class="linkA" href="https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000273" target="_blank" rel="noopener">장애인증명서 발급(정부24)</a>
+          <button class="qrBtn" onclick="toggleQR(this,'https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000273')">QR</button>
+        </div>
+        <div class="qrBox"></div>
+      </div>
     </div>
   </div>
-
-  <div id="installBanner" class="banner">
-    <b>📲 홈화면에 추가하면 앱처럼 사용됩니다</b><br>
-    안드로이드: ⋮ → 홈 화면에 추가 / 아이폰: 공유 → 홈 화면에 추가<br>
-    (맨 아래 ‘홈화면 설치/카톡 공유’ 버튼도 사용 가능)
-  </div>
-
-  <div class="card">
-    <h2>안내</h2>
-    <div class="sum">현재 화면에서 “주소창 밑 움직이는 줄”이 보이면 자동 갱신이 반복되는 상태입니다.</div>
-    <div class="where">이번 버전은 반복 리로드가 절대 발생하지 않도록 차단했습니다.</div>
-  </div>
-
-  <!-- (기존 ①~⑩/앱다운/하단3종세트는 형이 이미 쓰는 코드 유지 가능)
-       여기서는 “리로드 루프 차단” 핵심만 확정 제공.
-       형이 원하면 다음 메시지에 ①~⑩ 전체 포함 완전본으로 다시 합쳐서 드릴게요. -->
 
   <!-- ✅ 맨 아래 무조건 3종세트(고정 금지) -->
   <div class="bottomPack">
@@ -130,6 +203,7 @@
         홈화면 바로가기 설치 / 카톡 공유
       </button>
     </div>
+
     <div class="bottomQR">
       <p class="t">QR 찍고 → 홈 화면에 추가</p>
       <p class="s">아래 QR은 <b>install=1</b> 링크입니다. (설치 안내 자동 표시)</p>
@@ -139,116 +213,63 @@
     </div>
   </div>
 
-  <div class="foot" id="updateStatus"></div>
+  <div class="foot">
+    ※ “설치 안내 박스”는 항상 보이며, X로 닫으면 하루 동안 숨김됩니다.
+  </div>
 </div>
 
 <script>
-/* ✅ QR 토글 공용 */
-function toggleQR(btn, url){
-  const card = btn.closest('.linkItem') || btn.closest('.newsCard');
-  const box = card.querySelector('.qrBox');
-  const open = box.style.display === 'block';
-  if(open){ box.style.display='none'; box.innerHTML=''; return; }
-  const imgUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(url);
-  box.innerHTML = '<div class="qrHint">QR을 찍으면 이 링크로 바로 이동합니다</div><img alt="QR" src="'+imgUrl+'">';
-  box.style.display='block';
-}
-
-/* install=1 배너 */
-(function(){
-  const p = new URLSearchParams(location.search);
-  if(p.has("install")){
-    const b = document.getElementById("installBanner");
-    if(b) b.style.display = "block";
+  /* QR 토글 */
+  function toggleQR(btn, url){
+    const item = btn.closest('.linkItem');
+    const box = item.querySelector('.qrBox');
+    const open = box.style.display === 'block';
+    if(open){ box.style.display='none'; box.innerHTML=''; return; }
+    const imgUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(url);
+    box.innerHTML = '<div class="qrHint">QR을 찍으면 이 링크로 바로 이동합니다</div><img alt="QR" src="'+imgUrl+'">';
+    box.style.display='block';
   }
-})();
 
-/* 설치/공유 */
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+  /* 설치/공유 */
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
 
-async function openInstallShare(){
-  const url = "https://kongcare.vercel.app/?install=1";
-  const msg = "콩케어 링크입니다: " + url;
+  async function openInstallShare(){
+    const url = "https://kongcare.vercel.app/?install=1";
+    const msg = "콩케어 링크입니다: " + url;
 
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    try{ await deferredPrompt.userChoice; }catch(e){}
-    deferredPrompt = null;
-    alert("설치가 완료되면 카톡으로 링크를 공유해 주세요.");
-    return;
-  }
-  if(navigator.share){
-    try{ await navigator.share({title:"콩케어", text:msg, url}); return; }catch(e){}
-  }
-  try{
-    await navigator.clipboard.writeText(msg);
-    alert("링크를 복사했습니다. 카톡에 붙여넣기 하세요.");
-  }catch(e){
-    prompt("아래 링크를 복사해 카톡에 보내세요:", msg);
-  }
-}
-
-/* ✅ 자동 업데이트(루프 방지 버전)
-   - 변경 감지는 “세션당 1회만” 수행
-   - 3일/03시 리로드는 “다음 시간이 충분히 멀 때만” 예약
-*/
-function djb2(str){
-  let h = 5381;
-  for(let i=0;i<str.length;i++) h = ((h<<5)+h) + str.charCodeAt(i);
-  return (h >>> 0).toString(16);
-}
-
-async function autoRefreshIfChangedOnce(){
-  const doneKey = "kongcare_checked_once";
-  if(sessionStorage.getItem(doneKey)) return;
-  sessionStorage.setItem(doneKey, "1");
-
-  try{
-    const res = await fetch(location.pathname + "?v=" + Date.now(), {cache:'no-store'});
-    const txt = await res.text();
-    const hash = djb2(txt);
-    const key = "kongcare_last_hash";
-    const prev = localStorage.getItem(key);
-    localStorage.setItem(key, hash);
-
-    // 이전 해시가 있고 다르면 1회만 갱신
-    if(prev && prev !== hash){
-      location.href = "/?v=" + Date.now();
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      try{ await deferredPrompt.userChoice; }catch(e){}
+      deferredPrompt = null;
+      alert("설치가 완료되면 카톡으로 링크를 공유해 주세요.");
+      return;
     }
-  }catch(e){}
-}
-autoRefreshIfChangedOnce();
 
-// 다음 3일/03시(KST) 계산(루프 방지: 최소 6시간 이상일 때만 setTimeout)
-function nextRunKST(){
-  const now = new Date();
-  const kst = new Date(now.getTime() + (9*60 + now.getTimezoneOffset())*60*1000);
-  const base = new Date(kst); base.setHours(3,0,0,0);
-
-  let next = base;
-  if(kst >= base) next = new Date(base.getTime() + 3*24*60*60*1000);
-
-  const nextLocal = new Date(next.getTime() - (9*60 + now.getTimezoneOffset())*60*1000);
-  return {kstNext:next, localNext:nextLocal};
-}
-
-(function scheduleAutoUpdateSafe(){
-  const {kstNext, localNext} = nextRunKST();
-  const ms = localNext.getTime() - Date.now();
-
-  // 루프 방지: 6시간(21600000ms) 이상일 때만 예약
-  const MIN_MS = 6 * 60 * 60 * 1000;
-
-  const st = document.getElementById("updateStatus");
-  if(st){
-    st.textContent = `다음 자동 업데이트: ${kstNext.toISOString().replace('T',' ').slice(0,16)} (KST)`;
+    if(navigator.share){
+      try{ await navigator.share({title:"콩케어", text:msg, url}); return; }catch(e){}
+    }
+    try{
+      await navigator.clipboard.writeText(msg);
+      alert("링크를 복사했습니다. 카톡에 붙여넣기 하세요.");
+    }catch(e){
+      prompt("아래 링크를 복사해 카톡에 보내세요:", msg);
+    }
   }
 
-  if(ms > MIN_MS){
-    setTimeout(()=>{ location.href = "/?v=" + Date.now(); }, ms);
+  /* 설치 박스 닫기(하루 숨김) */
+  function hideInstallBox(){
+    const until = Date.now() + 24*60*60*1000;
+    localStorage.setItem("kongcare_hide_installbox_until", String(until));
+    document.getElementById("installBox").style.display = "none";
   }
-})();
+
+  (function(){
+    const until = Number(localStorage.getItem("kongcare_hide_installbox_until") || "0");
+    if(Date.now() < until){
+      document.getElementById("installBox").style.display = "none";
+    }
+  })();
 </script>
 </body>
 </html>
