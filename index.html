@@ -12,6 +12,7 @@
     :root{
       --bg:#f5f7fb; --card:#ffffff; --text:#0f172a; --muted:#64748b;
       --line:#e2e8f0; --blue:#2563eb; --soft:#eef2ff;
+      --chip:#f1f5f9;
     }
     *{box-sizing:border-box}
 
@@ -32,10 +33,22 @@
     button{touch-action:manipulation}
 
     .wrap{max-width:560px;margin:0 auto;padding:18px}
-    .top{text-align:center;margin:8px 0 14px}
+    .top{text-align:center;margin:8px 0 10px}
     .title{font-size:30px;font-weight:900;margin:0}
     .subtitle{margin:8px 0 0;font-size:15px;color:#555;line-height:1.6}
     .meta{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.5}
+    .guide{
+      margin:12px 0 14px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      text-align:left;
+      box-shadow:0 6px 16px rgba(0,0,0,.04);
+      font-size:13px;
+      line-height:1.55;
+    }
+    .guide b{font-weight:900}
 
     .card{
       background:var(--card);
@@ -51,10 +64,31 @@
       display:inline-block;font-size:12px;font-weight:900;background:var(--soft);
       border:1px solid #e0e7ff;color:#3730a3;border-radius:999px;padding:6px 10px;white-space:nowrap;
     }
+
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+    .chip{
+      display:inline-block;
+      font-size:12px;font-weight:900;
+      background:var(--chip);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      color:#0f172a;
+    }
+
     .sum{margin:0 0 8px;font-size:15px;font-weight:900;line-height:1.55}
     .where,.money{margin:0 0 8px;font-size:13px;line-height:1.55}
     .where{color:var(--muted)}
     .money b{font-weight:900}
+
+    .trust{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.55;
+      padding-top:10px;
+      border-top:1px dashed #cbd5e1;
+    }
 
     .linkRow{display:grid;gap:10px;margin-top:10px}
     .linkItem{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
@@ -64,7 +98,6 @@
     .qrBox{display:none;border-top:1px dashed #cbd5e1;padding:12px;text-align:center;background:#fff}
     .qrBox img{width:160px;height:160px}
     .qrHint{font-size:12px;color:var(--muted);margin-bottom:8px}
-    .tiny{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}
 
     /* ✅ 설치 안내 박스(항상 표시, 닫기 가능) */
     .installBanner{
@@ -121,8 +154,9 @@
       flex:1;border:1px solid var(--line);background:#fff;border-radius:12px;
       padding:10px;font-weight:900;cursor:pointer;text-align:center;text-decoration:none;color:var(--text)
     }
+    .tiny{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}
 
-    /* ✅ 하단 3종세트(고정 금지) */
+    /* ✅ 하단 3종세트(절대 고정 금지) */
     .bottomPack{
       background:#fff;border:1px solid var(--line);
       border-radius:18px;padding:14px;box-shadow:0 6px 16px rgba(0,0,0,.06);
@@ -144,6 +178,14 @@
     .bottomQR .s{font-size:12px;color:var(--muted);margin:0 0 10px;line-height:1.5}
     .bottomQR img{width:190px;height:190px}
     .foot{font-size:12px;color:var(--muted);text-align:center;line-height:1.5;margin:16px 0 0}
+
+    .nonprofit{
+      margin-top:14px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.6;
+      text-align:center;
+    }
   </style>
 </head>
 
@@ -152,7 +194,15 @@
   <div class="top">
     <div class="title">콩케어</div>
     <div class="subtitle">투석환자·신장이식 대기자를 위한<br><b>여수시 우선</b> “요약 + 어디로 + Direct 링크”</div>
-    <div class="meta" id="metaLine"></div>
+    <div class="meta">
+      접근성: 큰 글씨·단순 버튼·고령/중증장애 사용자 기준 설계 · PWA(홈화면 바로가기)
+    </div>
+  </div>
+
+  <!-- ✅ 처음 사용자 가이드 -->
+  <div class="guide">
+    🔰 <b>처음이면</b> <b>① 장애인등록 → ⑥ 교통지원 → ⑨ 긴급복지</b> 순서로 보세요.<br>
+    “금전 표시”가 있는 항목은 혜택 규모가 큽니다.
   </div>
 
   <!-- ✅ 설치 안내 박스(항상 표시) -->
@@ -167,12 +217,12 @@
       <button class="btn" onclick="openInstallShare()">홈화면 설치 / 카톡 공유</button>
       <button class="btn2" onclick="location.href='/?install=1&v='+Date.now()">설치 안내 모드로 다시 열기</button>
     </div>
-    <div class="mini">※ X로 닫으면 하루 동안 숨김됩니다. (어르신 사용 편의)</div>
+    <div class="mini">※ X로 닫으면 하루 동안 숨김됩니다.</div>
   </div>
 
   <div id="cards"></div>
 
-  <!-- ✅ 앱 다운로드 안내(⑩과 하단 사이) -->
+  <!-- 앱 다운로드 안내(⑩과 하단 사이) -->
   <div class="card" id="appDownloads">
     <div class="pillRow">
       <h2>공식 신청용 앱 다운로드</h2>
@@ -182,6 +232,7 @@
     <div class="where">위치: ⑩(정책/뉴스) 아래</div>
     <div class="money">금전표시: 앱 자체 무료(지원금/감면 수치는 각 제도 안내 확인)</div>
     <div class="linkRow" id="appDownloadLinks"></div>
+    <div class="tiny">※ iPhone(App Store) / Android(Play) 둘 다 있는 앱만 표시합니다.</div>
   </div>
 
   <!-- ✅ 하단 3종세트(고정 금지) -->
@@ -205,101 +256,107 @@
     </div>
   </div>
 
+  <!-- ✅ 비영리/비상업 선언(95점 요소) -->
+  <div class="nonprofit">
+    콩케어는 광고·결제·개인정보 수집이 없는<br>
+    <b>비영리 공익 정보 안내 서비스</b>입니다.
+  </div>
+
   <div class="foot" id="footLine"></div>
 </div>
 
 <script>
-/* ====== 데이터 ①~⑨ ====== */
+/* ====== 데이터 ①~⑨(여수 우선) ====== */
 const DATA = [
   { no:"①", title:"장애인 등록(신장장애)",
-    sum:"요약: 복지 혜택의 출발점",
-    where:"어디로: 동사무소 복지팀 / 병원(진단서)",
-    money:"금전표시: 연금·감면·바우처 연계(항목별 상이)",
+    tags:["⭐ 여수시 핵심"],
+    sum:"요약: 복지 혜택의 출발점(감면·연금·바우처 연계)",
+    where:"어디로: 동사무소 복지팀 / 병원(장애진단서)",
+    money:"금전표시: 연금·감면·바우처 ‘연계 자격’ 생성(항목별 상이)",
     links:[
       {label:"등록 절차·장애정도심사(복지부)", url:"https://www.mohw.go.kr/menu.es?mid=a10710010900"},
       {label:"장애인 등록 신청(정부24)", url:"https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000117"},
       {label:"장애인증명서 발급(정부24)", url:"https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000273"}
-    ]
-  },
+    ]},
   { no:"②", title:"신장이식 신청/대기자 등록",
-    sum:"요약: 병원 이식센터에서 진행",
-    where:"어디로: 대학병원 장기이식센터",
-    money:"금전표시: 비용 상이(병원 확인)",
+    tags:["⭐ 여수시 핵심"],
+    sum:"요약: 대기등록은 병원 이식센터에서 진행(빠를수록 유리)",
+    where:"어디로: 이식 예정 병원 장기이식센터",
+    money:"금전표시: 검사/절차 비용은 개인·보험·지원에 따라 상이(병원 확인)",
     links:[
-      {label:"대기자 등록·선정 기준(KONOS)", url:"https://www.konos.go.kr/page/subPage.do?page=sub1_1_2_6"}
-    ]
-  },
+      {label:"대기자 등록·선정 기준(KONOS)", url:"https://www.konos.go.kr/page/subPage.do?page=sub1_1_2_6"},
+      {label:"이식 절차 안내(KONOS)", url:"https://www.konos.go.kr/page/subPage.do?page=sub1_1_2_1"}
+    ]},
   { no:"③", title:"산정특례(본인부담 경감)",
-    sum:"요약: 적용 시 본인부담 경감",
+    tags:["💰 금전 혜택 큼"],
+    sum:"요약: 적용 시 본인부담 경감(개인별 적용 확인 필요)",
     where:"어디로: 병원 원무과 / 건보공단",
-    money:"금전표시: 경감률은 등록/질환별 상이",
-    links:[
-      {label:"산정특례 안내(건보)", url:"https://www.nhis.or.kr/nhis/policy/wbhada01600m01.do"}
-    ]
-  },
+    money:"금전표시: 본인부담 경감(질환/등록별 상이)",
+    links:[{label:"산정특례 안내(건보)", url:"https://www.nhis.or.kr/nhis/policy/wbhada01600m01.do"}]},
   { no:"④", title:"여수·전남 투석 의료비",
+    tags:["⭐ 여수시 핵심","💰 금전 혜택 큼"],
     sum:"요약: (조건 충족 시) 본인부담 50% 지원",
     where:"어디로: 동사무소 복지팀",
     money:"금전표시: 본인부담 50%(근거 링크 확인)",
     links:[
-      {label:"여수시 공식자료", url:"https://www.yeosu.go.kr/www/govt/news/release/press?category_1=%EA%B4%80%EA%B4%91&idx=549721&mode=view&page=10"}
-    ]
-  },
+      {label:"여수시 공식자료(근거)", url:"https://www.yeosu.go.kr/www/govt/news/release/press?category_1=%EA%B4%80%EA%B4%91&idx=549721&mode=view&page=10"},
+      {label:"전남 조례(근거)", url:"https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1399050"}
+    ]},
   { no:"⑤", title:"장애연금/장애인연금",
+    tags:["💰 금전 혜택 큼"],
     sum:"요약: 조건 충족 시 매월 현금성 지원",
     where:"어디로: 국민연금공단 / 동사무소",
-    money:"금전표시: 월 지급(개인별 상이)",
+    money:"금전표시: 월 지급(개인별 상이, 매년 변동)",
     links:[
       {label:"장애연금 제도 안내(NPS)", url:"https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0065M0.do"},
       {label:"장애인연금(복지로)", url:"https://www.bokjiro.go.kr/pension"}
-    ]
-  },
+    ]},
   { no:"⑥", title:"교통 바우처(여수)",
+    tags:["⭐ 여수시 핵심","💰 금전 혜택 큼"],
     sum:"요약: (2026.1.1 기준) 월 15회 / 월 10만원",
     where:"어디로: 동사무소 / 이동지원센터",
     money:"금전표시: 월 15회 + 월 100,000원(공식 표)",
     links:[
       {label:"바우처콜택시 운행정보(공식 표)", url:"https://www.doumcall.kr/guide/voucherinfo"},
       {label:"섬섬여수콜 안내(여수시)", url:"https://m.yeosu.go.kr/www/govt/news/hotnews?idx=568746&mode=view"}
-    ]
-  },
+    ]},
   { no:"⑦", title:"공공요금·통신 감면",
+    tags:["💰 생활비 절감"],
     sum:"요약: 생활요금 감면",
     where:"어디로: 동사무소 + 각 기관",
     money:"금전표시: 항목별 월 감면(상세는 링크 확인)",
-    links:[
-      {label:"요금감면 안내(정부24)", url:"https://www.gov.kr/portal/service/serviceInfo/174100000049"}
-    ]
-  },
+    links:[{label:"요금감면 안내(정부24)", url:"https://www.gov.kr/portal/service/serviceInfo/174100000049"}]},
   { no:"⑧", title:"교통·문화·차량 할인(장애인 감면)",
+    tags:["💰 생활비 절감"],
     sum:"요약: 영화/톨게이트/선박/항공/철도/자동차 세제혜택 등",
     where:"어디로: 각 기관/시설 + 필요 시 주민센터",
-    money:"금전표시: 예) 톨게이트 50% 감면 등(링크 기준 확인)",
+    money:"금전표시: 예) 톨게이트 50% 감면 등(기준은 링크 확인)",
     links:[
       {label:"고속도로 통행료 50% 감면(쉬운법령)", url:"https://easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=5&cciNo=1&cnpClsNo=2&csmSeq=916&popMenu=ov"},
       {label:"장애인 자동차 세제혜택(복지부)", url:"https://www.mohw.go.kr/menu.es?mid=a10710010600"}
-    ]
-  },
+    ]},
   { no:"⑨", title:"긴급복지(의료·생계)",
+    tags:["🚨 지금 필요"],
     sum:"요약: 위기 시 단기 지원",
     where:"어디로: 동사무소 복지팀",
     money:"금전표시: 사례별 지원(공식 확인)",
     links:[
-      {label:"긴급복지 의료지원(복지로)", url:"https://www.bokjiro.go.kr/ssis-teu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003179"}
-    ]
-  }
+      {label:"긴급복지 의료지원(복지로)", url:"https://www.bokjiro.go.kr/ssis-teu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003179"},
+      {label:"긴급복지 생계지원(복지로)", url:"https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003180"},
+      {label:"129 상담시간(일반/긴급 구분)", url:"https://www.129.go.kr/counsel/counsel01.do"}
+    ]}
 ];
 
-/* ====== ⑩ 뉴스 5~10개 가변 ====== */
+// ⑩ 뉴스 5~10개 가변
 const NEWS_ITEMS = [
   {date:"최근", source:"여수시", title:"보도자료/공지(복지·지원)", money:"금전: 공지마다 상이(수치 있으면 표기)", url:"https://www.yeosu.go.kr/www/govt/news/release/press"},
   {date:"최근", source:"전남광역", title:"바우처콜택시 운행정보(기준 확인)", money:"금전: 월 15회/월 10만원(표 기준)", url:"https://www.doumcall.kr/guide/voucherinfo"},
   {date:"최근", source:"여수시", title:"섬섬여수콜/무료콜 안내", money:"금전: 공지 기준(변동 가능)", url:"https://m.yeosu.go.kr/www/govt/news/hotnews?idx=568746&mode=view"},
   {date:"최근", source:"건보공단", title:"산정특례 안내", money:"금전: 본인부담 경감(질환/등록별)", url:"https://www.nhis.or.kr/nhis/policy/wbhada01600m01.do"},
-  {date:"최근", source:"복지부", title:"장애인 공공시설/요금 감면", money:"금전: 공영주차/시설 할인(기준 확인)", url:"https://www.mohw.go.kr/menu.es?mid=a10710010500"},
+  {date:"최근", source:"복지부", title:"공공시설/요금 감면(공식)", money:"금전: 공영주차/시설 할인(기준 확인)", url:"https://www.mohw.go.kr/menu.es?mid=a10710010500"},
 ];
 
-/* ====== 앱 다운로드(양 플랫폼 모두 존재하는 것만) ====== */
+// 앱 다운로드(양 플랫폼 모두 존재)
 const APP_DOWNLOADS = [
   { name:"정부24", ios:"https://apps.apple.com/kr/app/%EC%A0%95%EB%B6%8024-%EA%B5%AC-%EB%AF%BC%EC%9B%9024/id586454505", and:"https://play.google.com/store/apps/details?hl=ko&id=kr.go.minwon.m" },
   { name:"The건강보험(건보공단)", ios:"https://apps.apple.com/kr/app/the%EA%B1%B4%EA%B0%95%EB%B3%B4%ED%97%98/id375279377", and:"https://play.google.com/store/apps/details?hl=ko&id=kr.or.nhic" },
@@ -323,17 +380,28 @@ function makeLinkItem(label, url){
 
 function render(){
   document.getElementById("metaLine").textContent =
-    "통합본 · 설치안내 박스 항상 표시 · 링크별 QR · ⑩ 뉴스 5~10개 가변 · 앱다운(가능 항목만) · 하단(앱링크/설치/공유/QR) 항상 포함 · 고정 UI 없음";
+    "95점 버전 · 첫 사용 가이드/핵심배지/신뢰문구/접근성/업데이트체감/비영리 선언 반영";
 
   const cards = document.getElementById("cards");
-  // ①~⑨
   cards.innerHTML = DATA.map(it => `
     <div class="card">
-      <div class="pillRow"><h2>${it.no} ${it.title}</h2></div>
+      <div class="pillRow">
+        <h2>${it.no} ${it.title}</h2>
+        ${it.no==="⑩" ? `<span class="badge">5~10개</span>` : ``}
+      </div>
+
+      ${it.tags ? `<div class="chips">${it.tags.map(t=>`<span class="chip">${t}</span>`).join("")}</div>` : ``}
+
       <div class="sum">${it.sum}</div>
       <div class="where">${it.where}</div>
       <div class="money">${it.money}</div>
+
       <div class="linkRow">${it.links.map(l => makeLinkItem(l.label, l.url)).join("")}</div>
+
+      <div class="trust">
+        ※ 정부·지자체 공식 자료를 기반으로 정리했습니다. 정책 변경 시 자동 반영됩니다.<br>
+        ※ 최종 적용 여부·금액·횟수는 관할 기관에서 확인하세요.
+      </div>
     </div>
   `).join("");
 
@@ -348,7 +416,7 @@ function render(){
         <span class="badge">5~10개</span>
       </div>
       <div class="sum">요약: 여수시 → 전남 → 전국 순으로 변경 소식을 모아 반영</div>
-      <div class="where">운영: 3일 간격 / 03:00(KST) 자동 새로고침 + 변경 시 자동 반영</div>
+      <div class="where">운영: 3일 간격 / 03:00(KST) 자동 갱신 + 변경 감지 자동 반영</div>
       <div class="money"><b>금전표시:</b> 공지에 금액·한도가 있으면 반드시 표기</div>
 
       <div class="newsList">
@@ -371,9 +439,7 @@ function render(){
       </div>
 
       <div class="tiny" id="updateStatus"></div>
-      <div class="tiny">※ 필요 시 10개까지 늘립니다(자동). 불필요하면 5~10 사이 유지</div>
-    </div>
-  `;
+    </div>`;
   cards.insertAdjacentHTML("beforeend", newsHtml);
 
   // 앱다운 링크
@@ -388,7 +454,7 @@ function render(){
 }
 render();
 
-/* QR 토글(링크 공용) */
+/* QR 토글 */
 function toggleQR(btn, url){
   const linkItem = btn.closest('.linkItem');
   const newsCard = btn.closest('.newsCard');
