@@ -5,54 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>콩케어</title>
 
+  <!-- PWA -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#ffffff">
 
   <style>
     :root{
-      --bg:#f5f7fb; --card:#fff; --text:#0f172a; --muted:#64748b;
-      --line:#e2e8f0; --blue:#2563eb;
+      --bg:#f5f7fb; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+      --line:#e2e8f0; --blue:#2563eb; --soft:#eef2ff;
     }
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
-    .wrap{max-width:520px;margin:0 auto;padding:20px}
-    h1{font-size:28px;margin:10px 0 6px 0;text-align:center}
-    .sub{font-size:15px;color:#555;text-align:center;margin-bottom:18px;line-height:1.6}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+      background:var(--bg); color:var(--text);
+    }
+    .wrap{max-width:560px;margin:0 auto;padding:18px}
+    .top{text-align:center;margin:8px 0 14px}
+    .title{font-size:30px;font-weight:900;margin:0}
+    .subtitle{margin:8px 0 0;font-size:15px;color:#555;line-height:1.6}
+    .meta{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.5}
 
     .banner{
-      display:none;background:#eef2ff;border:1px dashed var(--blue);color:var(--text);
-      padding:12px;border-radius:14px;margin:12px 0 18px;font-size:13px;line-height:1.55
+      display:none;
+      background:var(--soft);
+      border:1px dashed var(--blue);
+      border-radius:14px;
+      padding:12px;
+      font-size:13px;
+      line-height:1.55;
+      margin:12px 0 14px;
+      text-align:left;
     }
     .banner b{font-weight:900}
 
-    .card{background:var(--card);border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
-    .card h2{font-size:20px;margin:0 0 8px 0}
-    .sum{font-size:15px;font-weight:900;margin:0 0 8px 0;line-height:1.55}
-    .where{font-size:13px;color:var(--muted);margin:0 0 8px 0;line-height:1.55}
-    .money{font-size:13px;margin:0 0 10px 0;line-height:1.55}
+    .card{
+      background:var(--card);
+      border-radius:18px;
+      padding:16px;
+      margin:14px 0;
+      box-shadow:0 6px 16px rgba(0,0,0,.06);
+      border:1px solid #f1f5f9;
+    }
+    .pillRow{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 8px}
+    .card h2{
+      margin:0;
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:-0.2px;
+    }
+    .badge{
+      display:inline-block;
+      font-size:12px;font-weight:900;
+      background:var(--soft);
+      border:1px solid #e0e7ff;
+      color:#3730a3;
+      border-radius:999px;
+      padding:6px 10px;
+      white-space:nowrap;
+    }
+    .sum{
+      margin:0 0 8px;
+      font-size:15px;
+      font-weight:900;
+      line-height:1.55;
+    }
+    .where,.money{
+      margin:0 0 8px;
+      font-size:13px;
+      line-height:1.55;
+    }
+    .where{color:var(--muted)}
     .money b{font-weight:900}
 
-    .linkRow{display:grid;gap:10px;margin-top:8px}
-    .linkItem{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
-    .linkTop{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px}
-    .linkA{flex:1;text-decoration:none;color:var(--text);font-weight:900;font-size:15px;line-height:1.35}
+    .linkRow{display:grid;gap:10px;margin-top:10px}
+    .linkItem{
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+      overflow:hidden;
+    }
+    .linkTop{
+      display:flex;gap:10px;align-items:center;justify-content:space-between;
+      padding:12px;
+    }
+    .linkA{
+      flex:1;text-decoration:none;color:var(--text);
+      font-weight:900;font-size:15px;line-height:1.35;
+    }
     .qrBtn{
       border:1px solid #cbd5e1;background:#f8fafc;border-radius:12px;
-      padding:10px 12px;font-weight:900;cursor:pointer
+      padding:10px 12px;font-weight:900;cursor:pointer;
     }
-    .qrBox{display:none;border-top:1px dashed #cbd5e1;padding:12px;text-align:center}
+    .qrBox{
+      display:none;
+      border-top:1px dashed #cbd5e1;
+      padding:12px;text-align:center;
+      background:#fff;
+    }
     .qrBox img{width:160px;height:160px}
     .qrHint{font-size:12px;color:var(--muted);margin-bottom:8px}
 
-    .hint{font-size:12px;color:var(--muted);line-height:1.5;margin:16px 0;text-align:center}
-
-    .titleRow{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .badge{display:inline-block;font-size:12px;font-weight:900;background:#eef2ff;border:1px solid #e0e7ff;color:#3730a3;border-radius:999px;padding:6px 10px}
     .tiny{font-size:12px;color:var(--muted);line-height:1.5;margin-top:8px}
 
-    /* ✅ 하단 3종세트: 고정 금지, 맨 아래 카드로만 */
+    /* ✅ 하단 3종세트(절대 고정 금지) */
     .bottomPack{
-      background:#ffffff;border:1px solid var(--line);padding:14px;border-radius:18px;
-      box-shadow:0 6px 16px rgba(0,0,0,.06);margin-top:10px;
+      background:#fff;border:1px solid var(--line);
+      border-radius:18px;padding:14px;
+      box-shadow:0 6px 16px rgba(0,0,0,.06);
+      margin-top:18px;
     }
     .bottomTitle{font-weight:900;font-size:15px;margin:0 0 10px 0}
     .bottomRow{display:grid;gap:10px}
@@ -78,79 +139,26 @@
 
 <body>
 <div class="wrap">
-  <h1>콩케어</h1>
-  <div class="sub">
-    투석환자·신장이식 대기자를 위한<br>
-    <b>여수시 우선</b> “요약 + 어디로 + Direct 링크”
+  <div class="top">
+    <div class="title">콩케어</div>
+    <div class="subtitle">
+      투석환자·신장이식 대기자를 위한<br>
+      <b>여수시 우선</b> “요약 + 어디로 + Direct 링크”
+    </div>
+    <div class="meta" id="metaLine"></div>
   </div>
 
+  <!-- install=1 진입 시 설치 안내 -->
   <div id="installBanner" class="banner">
     <b>📲 홈화면에 추가하면 앱처럼 사용됩니다</b><br>
-    안드로이드: ⋮ → 홈 화면에 추가 / 아이폰: 공유 → 홈 화면에 추가<br>
+    안드로이드: ⋮ → 홈 화면에 추가<br>
+    아이폰: 공유 → 홈 화면에 추가<br>
     (맨 아래 ‘홈화면 설치/카톡 공유’ 버튼도 사용 가능)
   </div>
 
-  <!-- (중간 ①~⑦은 형이 쓰던 그대로 유지한다고 가정 / 필요 시 여기로 붙여넣기 가능) -->
-  <!-- 여기서는 ⑧,⑨ 분리 요구 반영을 위해 ⑧,⑨만 예시 포함 -->
-  <!-- 실제 적용 시: 기존 ①~⑦ 카드 블록을 이 위치에 그대로 두면 됨 -->
+  <div id="cards"></div>
 
-  <!-- ⑧ 긴급복지(의료·생계) -->
-  <div class="card" id="sec8">
-    <h2>⑧ 긴급복지(의료·생계)</h2>
-    <div class="sum">요약: 위기 상황 시 의료/생계 단기 지원(사례별 산정)</div>
-    <div class="where">어디로: 동사무소 복지팀(접수/상담) + 공식 안내 확인</div>
-    <div class="money">금전표시: 사례별(의료/생계) — 공식 안내에 수치가 있으면 그 기준 적용</div>
-
-    <div class="linkRow">
-      <div class="linkItem"><div class="linkTop">
-        <a class="linkA" href="https://www.bokjiro.go.kr/ssis-teu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003179" target="_blank" rel="noopener">긴급복지 의료지원(복지로)</a>
-        <button class="qrBtn" onclick="toggleQR(this,'https://www.bokjiro.go.kr/ssis-teu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003179')">QR</button>
-      </div><div class="qrBox"></div></div>
-
-      <div class="linkItem"><div class="linkTop">
-        <a class="linkA" href="https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003180" target="_blank" rel="noopener">긴급복지 생계지원(복지로)</a>
-        <button class="qrBtn" onclick="toggleQR(this,'https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003180')">QR</button>
-      </div><div class="qrBox"></div></div>
-    </div>
-  </div>
-
-  <!-- ⑨ 정책/뉴스 업데이트(분리) -->
-  <div class="card" id="updates">
-    <div class="titleRow">
-      <h2 style="margin:0">⑨ 중증장애인 정책·뉴스 업데이트</h2>
-      <span class="badge">3일/03시</span>
-    </div>
-    <div class="sum">요약: 여수시 → 전남 → 전국 순으로 변경 소식을 모아 반영</div>
-    <div class="where">운영: 3일 간격 / 03:00(KST) 자동 새로고침으로 최신 반영</div>
-    <div class="money">금전표시: 새 정책/공지에 금액·한도가 있으면 반드시 표기</div>
-
-    <!-- 초기 기본 소스(예시): 여수/전남/129 등 “출처” 링크 -->
-    <div class="linkRow">
-      <div class="linkItem"><div class="linkTop">
-        <a class="linkA" href="https://www.yeosu.go.kr/www/govt/news/release/press" target="_blank" rel="noopener">여수시 보도자료(복지/지원)</a>
-        <button class="qrBtn" onclick="toggleQR(this,'https://www.yeosu.go.kr/www/govt/news/release/press')">QR</button>
-      </div><div class="qrBox"></div></div>
-
-      <div class="linkItem"><div class="linkTop">
-        <a class="linkA" href="https://www.jeonnam.go.kr" target="_blank" rel="noopener">전라남도청(복지/공지)</a>
-        <button class="qrBtn" onclick="toggleQR(this,'https://www.jeonnam.go.kr')">QR</button>
-      </div><div class="qrBox"></div></div>
-
-      <div class="linkItem"><div class="linkTop">
-        <a class="linkA" href="https://www.bokjiro.go.kr" target="_blank" rel="noopener">복지로(정책 안내)</a>
-        <button class="qrBtn" onclick="toggleQR(this,'https://www.bokjiro.go.kr')">QR</button>
-      </div><div class="qrBox"></div></div>
-    </div>
-
-    <div class="tiny" id="updateStatus"></div>
-    <div class="tiny">※ 자동 업데이트로 “소식 반영”은 유지되며, 실제 ‘뉴스 목록 추가’는 추후 자동 수집(서버/DB) 또는 수기 입력 방식으로 운영 가능합니다.</div>
-  </div>
-
-  <div class="hint">
-    ※ 하단 3종세트(링크+설치/공유+QR)는 앞으로 어떤 코딩에서도 항상 포함되며, <b>절대 고정하지 않습니다.</b>
-  </div>
-
-  <!-- ✅ 무조건: 페이지 맨 아래 배치(고정 금지) -->
+  <!-- ✅ 맨 아래 무조건: 링크 + 설치/공유 + QR (고정 금지) -->
   <div class="bottomPack">
     <div class="bottomTitle">📲 콩케어 앱 설치/공유(바탕화면 바로가기)</div>
     <div class="bottomRow">
@@ -171,78 +179,249 @@
     </div>
   </div>
 
-  <div class="foot">
-    ※ 주요 내용 변경 시 자동 업데이트로 최신 반영(3일/03시).<br>
-    ※ 지원은 개인 조건·지침·예산에 따라 달라질 수 있으니 최종 확인 필요.
-  </div>
+  <div class="foot" id="footLine"></div>
 </div>
 
 <script>
-  // 링크 아래 QR 토글
-  function toggleQR(btn, url){
-    const box = btn.parentElement.parentElement.querySelector('.qrBox');
-    const open = box.style.display === 'block';
-    if(open){ box.style.display='none'; box.innerHTML=''; return; }
-    const imgUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(url);
-    box.innerHTML = '<div class="qrHint">QR을 찍으면 이 링크로 바로 이동합니다</div><img alt="QR" src="'+imgUrl+'">';
-    box.style.display='block';
+/* =========================
+   ①~⑨ 데이터 (여수 우선 / 금전표시 / Direct 링크)
+   ========================= */
+const DATA = [
+  {
+    no:"①",
+    title:"장애인 등록(신장장애)",
+    sum:"요약: 복지 혜택의 출발점(감면·연금·바우처 연계)",
+    where:"어디로: 동사무소(행정복지센터) 복지팀 / 병원(장애진단서)",
+    money:"금전표시: 연금·감면·바우처 ‘연계 자격’ 생성(항목별 상이)",
+    links:[
+      {label:"등록 절차·장애정도심사(복지부)", url:"https://www.mohw.go.kr/menu.es?mid=a10710010900"},
+      {label:"장애인 등록 신청(정부24)", url:"https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000117"},
+      {label:"장애인증명서 발급(정부24)", url:"https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000273"},
+      {label:"장애인등록증(복지카드) 재발급(정부24)", url:"https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000110"}
+    ]
+  },
+  {
+    no:"②",
+    title:"신장이식 신청/대기자 등록",
+    sum:"요약: 대기등록은 병원 이식센터에서 진행(빠를수록 유리)",
+    where:"어디로: 이식 예정 병원 장기이식센터(대학병원 등)",
+    money:"금전표시: 검사/절차 비용은 개인·보험·지원에 따라 상이(병원 안내 확인)",
+    links:[
+      {label:"대기자 등록·선정 기준(KONOS)", url:"https://www.konos.go.kr/page/subPage.do?page=sub1_1_2_6"},
+      {label:"이식 절차 안내(KONOS)", url:"https://www.konos.go.kr/page/subPage.do?page=sub1_1_2_1"}
+    ]
+  },
+  {
+    no:"③",
+    title:"산정특례(본인부담 경감)",
+    sum:"요약: 적용 시 본인부담 경감(개인별 적용 확인 필요)",
+    where:"어디로: 병원 원무과 / 국민건강보험공단 지사",
+    money:"금전표시: 본인부담 경감(질환/등록에 따라 다름)",
+    links:[
+      {label:"산정특례 안내(건보)", url:"https://www.nhis.or.kr/nhis/policy/wbhada01600m01.do"},
+      {label:"적용 대상·기준(건보)", url:"https://www.nhis.or.kr/nhis/policy/wbhada01700m01.do"}
+    ]
+  },
+  {
+    no:"④",
+    title:"여수·전남 투석 의료비 지원",
+    sum:"요약: (조건 충족 시) 투석비 본인부담액 50% 지원",
+    where:"어디로: 동사무소 복지팀(신청) / 지침·예산 확인",
+    money:"금전표시(근거 링크): 본인부담 50%(세부 조건은 공식 공지/조례 확인)",
+    links:[
+      {label:"여수시 공식자료(지원 안내)", url:"https://www.yeosu.go.kr/www/govt/news/release/press?category_1=%EA%B4%80%EA%B4%91&idx=549721&mode=view&page=10"},
+      {label:"전남 조례(근거)", url:"https://www.law.go.kr/LSW/ordinInfoP.do?ordinSeq=1399050"}
+    ]
+  },
+  {
+    no:"⑤",
+    title:"장애연금/장애인연금",
+    sum:"요약: 조건 충족 시 매월 현금성 지원(종류/요건 상이)",
+    where:"어디로: 국민연금공단(장애연금) / 동사무소(장애인연금)",
+    money:"금전표시: 월 지급(개인별 산정/매년 변동) — 안내 페이지 확인",
+    links:[
+      {label:"장애연금 제도 안내(NPS)", url:"https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0065M0.do"},
+      {label:"장애연금 청구/신청(정부24)", url:"https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000301"},
+      {label:"장애인연금(복지로)", url:"https://www.bokjiro.go.kr/pension"}
+    ]
+  },
+  {
+    no:"⑥",
+    title:"교통 바우처(여수)",
+    sum:"요약: (2026.1.1 기준) 월 15회 / 월 100,000원",
+    where:"어디로: 동사무소 복지팀 / 전남광역 이동지원센터 등록",
+    money:"금전표시(근거 링크): 월 15회 + 월 100,000원(공식 표 기준, 변동 가능)",
+    links:[
+      {label:"바우처콜택시 운행정보(공식 표)", url:"https://www.doumcall.kr/guide/voucherinfo"}
+    ]
+  },
+  {
+    no:"⑦",
+    title:"공공요금·통신 감면",
+    sum:"요약: (조건 충족 시) 생활요금 감면",
+    where:"어디로: 동사무소 복지팀 + 각 기관(전기/가스/통신사)",
+    money:"금전표시: 항목별 월 감면(기관별 상이) — 안내 페이지 확인",
+    links:[
+      {label:"요금감면 안내(정부24)", url:"https://www.gov.kr/portal/service/serviceInfo/174100000049"},
+      {label:"통신요금 감면(복지로)", url:"https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003257"}
+    ]
+  },
+  {
+    no:"⑧",
+    title:"긴급복지(의료·생계)",
+    sum:"요약: 위기 상황 시 의료/생계 단기 지원(사례별 산정)",
+    where:"어디로: 동사무소 복지팀(접수/상담) + 공식 안내 확인",
+    money:"금전표시: 사례별(의료/생계) — 공식 안내에 수치가 있으면 그 기준 적용",
+    links:[
+      {label:"긴급복지 의료지원(복지로)", url:"https://www.bokjiro.go.kr/ssis-teu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003179"},
+      {label:"긴급복지 생계지원(복지로)", url:"https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003180"},
+      {label:"129 상담시간(일반/긴급 구분)", url:"https://www.129.go.kr/counsel/counsel01.do"}
+    ]
+  },
+  {
+    no:"⑨",
+    title:"중증장애인 정책·뉴스 업데이트",
+    sum:"요약: 여수시 → 전남 → 전국 순으로 변경 소식을 모아 반영",
+    where:"운영: 3일 간격 / 03:00(KST) 자동 새로고침 + 내용 변경 감지 자동 반영",
+    money:"금전표시: 정책 공지에 금액·한도가 있으면 반드시 표기",
+    badge:"3일/03시",
+    links:[
+      {label:"[여수시] 보도자료/공지(복지·지원)", url:"https://www.yeosu.go.kr/www/govt/news/release/press"},
+      {label:"[전남] 도청(복지/공지)", url:"https://www.jeonnam.go.kr"},
+      {label:"[전국] 보건복지부(정책/공지)", url:"https://www.mohw.go.kr"},
+      {label:"[전국] 복지로(정책 안내)", url:"https://www.bokjiro.go.kr"},
+      {label:"[전국] 정부24(민원/제도)", url:"https://www.gov.kr"}
+    ]
   }
+];
 
-  // 설치/공유
-  let deferredPrompt = null;
-  window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+/* 렌더 */
+function makeLinkItem(label, url){
+  const safeUrl = String(url);
+  const escaped = safeUrl.replace(/'/g, "%27");
+  return `
+    <div class="linkItem">
+      <div class="linkTop">
+        <a class="linkA" href="${safeUrl}" target="_blank" rel="noopener">${label}</a>
+        <button class="qrBtn" onclick="toggleQR(this,'${escaped}')">QR</button>
+      </div>
+      <div class="qrBox"></div>
+    </div>
+  `;
+}
 
-  async function openInstallShare(){
-    const url = "https://kongcare.vercel.app/?install=1";
-    const msg = "콩케어 링크입니다: " + url;
+function render(){
+  document.getElementById("metaLine").textContent =
+    "기준: 여수시 우선 · 링크별 QR · 하단(앱링크/설치/공유/QR) 항상 포함 · 고정 UI 없음";
 
-    if(deferredPrompt){
-      deferredPrompt.prompt();
-      try{ await deferredPrompt.userChoice; }catch(e){}
-      deferredPrompt = null;
-      alert("설치가 완료되면 카톡으로 링크를 공유해 주세요.");
+  const cards = document.getElementById("cards");
+  cards.innerHTML = DATA.map(it => `
+    <div class="card" id="sec-${it.no}">
+      <div class="pillRow">
+        <h2>${it.no} ${it.title}</h2>
+        ${it.badge ? `<span class="badge">${it.badge}</span>` : ``}
+      </div>
+      <div class="sum">${it.sum}</div>
+      <div class="where">${it.where}</div>
+      <div class="money">${it.money}</div>
+      <div class="linkRow">
+        ${it.links.map(l => makeLinkItem(l.label, l.url)).join("")}
+      </div>
+      ${it.no==="⑨" ? `<div class="tiny" id="updateStatus"></div>` : ``}
+    </div>
+  `).join("");
+
+  document.getElementById("footLine").innerHTML =
+    "※ 수치 표기는 공식 근거가 있는 경우만 표기했습니다. 정책/기준은 변경될 수 있으니 최종 확인 필요.";
+}
+render();
+
+/* 링크 QR 토글 */
+function toggleQR(btn, url){
+  const box = btn.parentElement.parentElement.querySelector('.qrBox');
+  const open = box.style.display === 'block';
+  if(open){ box.style.display='none'; box.innerHTML=''; return; }
+  const imgUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(url);
+  box.innerHTML = '<div class="qrHint">QR을 찍으면 이 링크로 바로 이동합니다</div><img alt="QR" src="'+imgUrl+'">';
+  box.style.display='block';
+}
+
+/* install=1 배너 */
+(function(){
+  const p = new URLSearchParams(location.search);
+  if(p.has("install")){
+    const b = document.getElementById("installBanner");
+    if(b) b.style.display = "block";
+  }
+})();
+
+/* 설치/공유 */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+
+async function openInstallShare(){
+  const url = "https://kongcare.vercel.app/?install=1";
+  const msg = "콩케어 링크입니다: " + url;
+
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    try{ await deferredPrompt.userChoice; }catch(e){}
+    deferredPrompt = null;
+    alert("설치가 완료되면 카톡으로 링크를 공유해 주세요.");
+    return;
+  }
+  if(navigator.share){
+    try{ await navigator.share({title:"콩케어", text:msg, url}); return; }catch(e){}
+  }
+  try{
+    await navigator.clipboard.writeText(msg);
+    alert("링크를 복사했습니다. 카톡에 붙여넣기 하세요.");
+  }catch(e){
+    prompt("아래 링크를 복사해 카톡에 보내세요:", msg);
+  }
+}
+
+/* 자동 업데이트 1) 내용 변경 감지 */
+function djb2(str){
+  let h = 5381;
+  for(let i=0;i<str.length;i++) h = ((h<<5)+h) + str.charCodeAt(i);
+  return (h >>> 0).toString(16);
+}
+async function autoRefreshIfChanged(){
+  try{
+    const res = await fetch(location.pathname, {cache:'no-store'});
+    const txt = await res.text();
+    const hash = djb2(txt);
+    const key = "kongcare_last_hash";
+    const prev = localStorage.getItem(key);
+    if(prev && prev !== hash){
+      location.href = "/?v=" + Date.now();
       return;
     }
+    localStorage.setItem(key, hash);
+  }catch(e){}
+}
+autoRefreshIfChanged();
 
-    if(navigator.share){
-      try{ await navigator.share({title:"콩케어", text:msg, url}); return; }catch(e){}
-    }
-    try{
-      await navigator.clipboard.writeText(msg);
-      alert("링크를 복사했습니다. 카톡에 붙여넣기 하세요.");
-    }catch(e){
-      prompt("아래 링크를 복사해 카톡에 보내세요:", msg);
-    }
+/* 자동 업데이트 2) 3일/03시(KST) */
+function nextRunKST(){
+  const now = new Date();
+  const kst = new Date(now.getTime() + (9*60 + now.getTimezoneOffset())*60*1000);
+  const base = new Date(kst); base.setHours(3,0,0,0);
+  let next = base;
+  if(kst >= base) next = new Date(base.getTime() + 3*24*60*60*1000);
+  const nextLocal = new Date(next.getTime() - (9*60 + now.getTimezoneOffset())*60*1000);
+  return {kstNow:kst, kstNext:next, localNext:nextLocal};
+}
+(function scheduleAutoUpdate(){
+  const {kstNext, localNext} = nextRunKST();
+  const ms = Math.max(10_000, localNext.getTime() - Date.now());
+  const st = document.getElementById("updateStatus");
+  if(st){
+    st.textContent = `업데이트 자동 체크: 3일 간격 / 03:00(KST). 다음 체크: ${kstNext.toISOString().replace('T',' ').slice(0,16)} (KST)`;
   }
-
-  // ?install=1로 들어오면 설치 안내 표시
-  (function(){
-    const p = new URLSearchParams(location.search);
-    if(p.has("install")){
-      const b = document.getElementById("installBanner");
-      if(b) b.style.display = "block";
-    }
-  })();
-
-  // 자동 업데이트(3일 간격 / 03:00 KST) → 캐시 우회 재로드
-  function nextRunKST(){
-    const now = new Date();
-    const kst = new Date(now.getTime() + (9*60 + now.getTimezoneOffset())*60*1000);
-    const base = new Date(kst); base.setHours(3,0,0,0);
-    let next = base;
-    if(kst >= base) next = new Date(base.getTime() + 3*24*60*60*1000);
-    const nextLocal = new Date(next.getTime() - (9*60 + now.getTimezoneOffset())*60*1000);
-    return {kstNext:next, localNext:nextLocal};
-  }
-  (function scheduleAutoUpdate(){
-    const {kstNext, localNext} = nextRunKST();
-    const ms = Math.max(10_000, localNext.getTime() - Date.now());
-    const st = document.getElementById("updateStatus");
-    if(st){
-      st.textContent = `업데이트 자동 체크: 3일 간격 / 03:00(KST). 다음 체크: ${kstNext.toISOString().replace('T',' ').slice(0,16)} (KST)`;
-    }
-    setTimeout(()=>{ location.href = "/?v=" + Date.now(); }, ms);
-  })();
+  setTimeout(()=>{ location.href = "/?v=" + Date.now(); }, ms);
+})();
 </script>
 </body>
 </html>
