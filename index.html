@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>콩케어</title>
+  <title>콩케어</title>\n  <meta name="theme-color" content="#2563eb"/>\n  <meta name="description" content="신장장애인·투석환자·이식대기자를 위한 복지·지원 안내"/>\n  <link rel="manifest" href="/manifest.webmanifest"/>\n  <link rel="icon" href="/icon.svg" type="image/svg+xml"/>
 
   <style>
     :root{
@@ -213,6 +213,15 @@
       background:#fff;
     }
     input{border-radius:10px}
+  
+    .helperBox{background:#fff;border:2px solid #dbeafe;border-radius:18px;padding:16px;margin:14px 0;box-shadow:0 6px 16px rgba(0,0,0,.05)}
+    .helperTitle{font-size:21px;font-weight:900;margin:0 0 8px}
+    .helperDesc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+    .helperRow{display:grid;grid-template-columns:1fr auto;gap:8px}
+    .helperRow button{border:0;background:var(--blue);color:#fff;border-radius:12px;padding:0 16px;font-weight:900;font-size:16px}
+    .helperAnswer{margin-top:10px;border-radius:12px;background:#f8fafc;border:1px solid var(--line);padding:12px;font-size:15px;line-height:1.65;min-height:48px}
+    .helperQuick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .helperQuick button{border:1px solid #bfdbfe;background:#eff6ff;border-radius:999px;padding:9px 12px;font-weight:800;color:#1d4ed8}
   </style>
 </head>
 
@@ -232,6 +241,23 @@
   <div class="guide">
     🔰 <b>처음이면</b> <b>① 장애인등록 → ⑥ 교통지원 → ⑨ 긴급복지</b> 순서로 보세요.<br>
     “금전표시”가 있는 항목이 혜택 규모가 큽니다.
+  </div>
+
+  <div class="helperBox" id="careHelper">
+    <div class="helperTitle">💬 콩케어에게 물어보기</div>
+    <div class="helperDesc">어려운 메뉴를 찾지 말고 평소 말하듯 입력하세요. 관련 항목을 바로 찾아드립니다. 개인정보는 입력하지 마세요.</div>
+    <div class="helperRow">
+      <input id="helperInput" aria-label="콩케어 질문" placeholder="예: 투석 병원비 지원 어디서 신청해?"/>
+      <button onclick="askKongcare()">찾기</button>
+    </div>
+    <div class="helperQuick">
+      <button onclick="quickAsk('투석 의료비')">투석 의료비</button>
+      <button onclick="quickAsk('교통 지원')">교통 지원</button>
+      <button onclick="quickAsk('장애인연금')">연금</button>
+      <button onclick="quickAsk('긴급복지')">긴급복지</button>
+    </div>
+    <div class="helperAnswer" id="helperAnswer" aria-live="polite">궁금한 내용을 입력하면 관련 지원 항목을 안내해 드립니다.</div>
+    <div class="tiny">※ 의료진단·법적 판정 기능이 아니라, 콩케어에 정리된 공식 안내 항목을 찾아주는 도우미입니다.</div>
   </div>
 
   <!-- 설치/공유 안내 -->
@@ -715,7 +741,7 @@
 
 <script>
   /* ========= 설정 ========= */
-  const ADMIN_PIN = "6972";                 // 형이 원하는 4자리로 변경
+  const ADMIN_MODE_ENABLED = false;          // production: public client-side admin disabled\n  const ADMIN_PIN = null;
   const REMOTE_UPDATES_URL = "/updates.json";
   const TAP_COUNT = 7;
   const TAP_WINDOW_MS = 900;
